@@ -1,5 +1,4 @@
+@use "@styles/utils/_variables.scss" as *;
+
 @use "@styles/global.scss" as *;
 
-h1 {
-    color: $primary-color;
-}
