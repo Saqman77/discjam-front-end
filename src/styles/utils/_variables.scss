@@ -1,3 +1,82 @@
+@font-face {
+  font-family: 'BNKICK';
+  src: url('../../assets/fonts/BNKICK.woff2') format('woff2'),
+       url('../../assets/fonts/BNKICK.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BNKICK';
+  src: url('../../assets/fonts/BNKICK-MEDIUM.woff2') format('woff2'),
+       url('../../assets/fonts/BNKICK-MEDIUM.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-R.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-Bold.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-B.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-Italic.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-RI.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-BoldItalic.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-BI.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-Medium.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-M.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-MediumItalic.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-MI.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-Light.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-L.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../../assets/fonts/Ubuntu-LightItalic.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-LI.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Ubuntu Condensed';
+  src: url('../../assets/fonts/UbuntuCondensed-Regular.woff2') format('woff2'),
+       url('../../assets/fonts/Ubuntu-C.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 // Colors
 $primary: #4EFC00;
 $background: #0E0E0E;
@@ -5,7 +84,8 @@ $text-color: #ffffff;
 $accent: #00ffd5;
 
 // Fonts
-$font-primary: 'Inter', sans-serif;
+$font-primary: 'BNKICK', sans-serif;
+$font-body: 'Ubuntu', sans-serif;
 
 // Spacing
 $spacing-unit: 1rem;
