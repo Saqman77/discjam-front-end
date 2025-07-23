@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   width: 100%;
+  
 }
 
 button, button:active, button:hover, button:focus {
@@ -17,4 +18,5 @@ html, body {
   height: 100%;
   background-color: $background;
   width: 100%;
+  overflow: hidden;
 }

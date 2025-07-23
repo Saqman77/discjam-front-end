@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.5.2",
     "@react-three/fiber": "^9.2.0",
+    "gsap": "^3.13.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sass": "^1.89.2",

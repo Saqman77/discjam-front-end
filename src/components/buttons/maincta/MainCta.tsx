@@ -1,7 +1,7 @@
 import './maincta.scss';
-const MainCta = () => {
+const MainCta = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button className="main-cta">
+    <button className="main-cta" onClick={onClick}>
       BUY TICKETS
     </button>
   )
