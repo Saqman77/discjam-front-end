@@ -1,6 +1,6 @@
 import MainCta from "@components/buttons/maincta/MainCta"
 import PreScreen from "./prescreen/PreScreen"
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap'
 
@@ -15,7 +15,7 @@ const Home = () => {
         duration: 1,
         ease: 'power2.inOut',
         onComplete: () => {
-          gsap.to(ctaRef.current, { opacity: 0, duration: 0.3 });
+          gsap.to(ctaRef.current, { opacity: 0, duration: 0.5 });
         },
       });
       gsap.fromTo(
@@ -24,6 +24,13 @@ const Home = () => {
         { opacity: 1, duration: 5, ease: 'power2.inOut' }
       );
     } 
+  }, [clicked]);
+
+  // Set pointer-events based on clicked
+useEffect(() => {
+    if (ctaRef.current) {
+      ctaRef.current.style.pointerEvents = clicked ? 'none' : 'auto';
+    }
   }, [clicked]);
 
   const clicker = () => {
