@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+button, button:active, button:hover, button:focus {
+  all: unset;
+  cursor: pointer;
+}
 html, body {
   height: 100%;
   background-color: $background;
