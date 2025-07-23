@@ -1,16 +1,16 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "paths": {
-      "@components/*": ["components/*"],
-      "@scenes/*": ["scenes/*"],
-      "@hooks/*": ["hooks/*"],
-      "@assets/*": ["assets/*"],
-      "@styles/*": ["styles/*"]
-    }
+      "@components/*": ["src/components/*"],
+      "@scenes/*": ["src/scenes/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@assets/*": ["src/assets/*"],
+      "@styles/*": ["src/styles/*"]
+    },
+    "types": ["node"] 
   },
   "include": ["src"]
 }
