@@ -8,7 +8,7 @@ export default function BackgroundCanvas() {
     <Canvas
       className="webgl"
       gl={{ toneMapping: THREE.NoToneMapping }}
-      camera={{ position: [0, 0, 0], fov: 75 }}
+      camera={{ position: [0, 0, 5], fov: 75 }}
       style={{ position: 'fixed', inset: 0, zIndex: 0 }}
     >
       <group rotation={[0.1, 0, Math.PI / -5]}> {/* Rotate camera's parent group */}

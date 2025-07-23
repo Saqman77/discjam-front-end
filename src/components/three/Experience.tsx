@@ -65,7 +65,7 @@ export default function Experience() {
 
   return (
     <>
-      <group ref={groupRef} position={[-1.5, -0.5, 1]}>
+      <group ref={groupRef} position={[-1.5, -1.5, -1]}>
         {/* Vertical Lines */}
         {verticalLines.map((points, i) => (
           <Line
