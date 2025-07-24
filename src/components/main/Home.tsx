@@ -4,18 +4,24 @@ import { useState, useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap'
 
+const SESSION_KEY = 'prescreenHidden';
+
 const Home = () => {
   const [clicked, setClicked] = useState(false)
+  const [hidden, setHidden] = useState(() => sessionStorage.getItem(SESSION_KEY) === 'true');
   const ctaRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    if (clicked) {
+    if (clicked && !hidden) {
       gsap.to(ctaRef.current, {
         rotate: -90,
         duration: 1,
         ease: 'power2.inOut',
         onComplete: () => {
-          gsap.to(ctaRef.current, { opacity: 0, duration: 0.5 });
+          gsap.to(ctaRef.current, { opacity: 0, duration: 0.5, onComplete: () => {
+            sessionStorage.setItem(SESSION_KEY, 'true');
+            setHidden(true);
+          }});
         },
       });
       gsap.fromTo(
@@ -24,10 +30,10 @@ const Home = () => {
         { opacity: 1, duration: 5, ease: 'power2.inOut' }
       );
     } 
-  }, [clicked]);
+  }, [clicked, hidden]);
 
   // Set pointer-events based on clicked
-useEffect(() => {
+  useEffect(() => {
     if (ctaRef.current) {
       ctaRef.current.style.pointerEvents = clicked ? 'none' : 'auto';
     }
@@ -40,10 +46,12 @@ useEffect(() => {
 
   return (
     <div className="main-container">
-      <div className="cta-container" ref={ctaRef}>
-        <MainCta onClick={clicker} />
-      </div>
-      <PreScreen clicked={clicked} />
+      {!hidden && (
+        <div className="cta-container" ref={ctaRef}>
+          <MainCta onClick={clicker} />
+        </div>
+      )}
+      {!hidden && <PreScreen clicked={clicked} />}
     </div>
   )
 }
