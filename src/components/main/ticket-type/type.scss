@@ -62,6 +62,8 @@
                 border: 2px solid $primary;
                 background-color: $background;
                 flex-direction: column;
+                border-radius: 12px;
+                margin-right: 24px;
                 .center{
                     display: flex;
                     flex-direction: column;
@@ -69,6 +71,7 @@
                     height: fit-content;
                     align-items: center;
                     justify-content: center;
+                    margin: auto;
                     .icon{
                         width: 70px;
                         height: 70px;
@@ -93,6 +96,18 @@
                         }
                     }
                 }
+                .bottom{
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 120px;
+                    p{
+                        font-family: $font-primary;
+                        font-weight: 400;
+                        color: $primary;
+                        font-size: 40px;
+                        text-align: center;
+                    }
+                }
             }
             .r-box{
                 width: 571px;
@@ -103,6 +118,7 @@
                 border: 2px solid $primary;
                 background-color: $background;
                 flex-direction: column;
+                border-radius: 12px;
                 .center{
                     display: flex;
                     flex-direction: column;
@@ -110,8 +126,9 @@
                     height: fit-content;
                     align-items: center;
                     justify-content: center;
+                    margin: auto;
                     .icon{
-                        width: 70px;
+                        width: 80px;
                         height: 70px;
                         margin-bottom: 16px;
                         img{
@@ -132,6 +149,18 @@
                             font-size: 24px;
                             text-align: center;
                         }
+                    }
+                }
+                .bottom{
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 120px;
+                    p{
+                        font-family: $font-primary;
+                        font-weight: 400;
+                        color: $primary;
+                        font-size: 40px;
+                        text-align: center;
                     }
                 }
             }
