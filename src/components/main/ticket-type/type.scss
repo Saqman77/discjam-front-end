@@ -1,0 +1,140 @@
+@use "@styles/utils/variables.scss" as *;
+
+.t-container {
+    width: 100%;
+    height: 100%;
+    min-height: 100svh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7.5vw 10.42vw;
+    background: linear-gradient(90deg,
+            rgba(14, 14, 14, 0.5) 0%,
+            rgba(0, 0, 0, 0.212) 100%);
+    backdrop-filter: blur(5px);
+
+    .t-header {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .t-heading {
+            width: 100%;
+            margin-bottom: 16px;
+            h1 {
+                font-size: 40px;
+                font-weight: 700;
+                color: $primary;
+                font-family: $font-body;
+                text-align: center;
+            }
+        }
+        .t-desc{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            p{
+                color: $text-muted;
+                font-family: $font-body;
+                font-weight: 700;
+                font-size: 24px;
+                width: 50%;
+                text-align: center;
+            }
+        }}
+
+        .t-wrapper{
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            .l-box{
+                width: 571px;
+                height: 571px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid $primary;
+                background-color: $background;
+                flex-direction: column;
+                .center{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: fit-content;
+                    align-items: center;
+                    justify-content: center;
+                    .icon{
+                        width: 70px;
+                        height: 70px;
+                        margin-bottom: 16px;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+                    .text{
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        p{
+                            color: $text-color;
+                            font-family: $font-body;
+                            font-weight: 700;
+                            font-size: 24px;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            .r-box{
+                width: 571px;
+                height: 571px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid $primary;
+                background-color: $background;
+                flex-direction: column;
+                .center{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: fit-content;
+                    align-items: center;
+                    justify-content: center;
+                    .icon{
+                        width: 70px;
+                        height: 70px;
+                        margin-bottom: 16px;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+                    .text{
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        p{
+                            color: $text-color;
+                            font-family: $font-body;
+                            font-weight: 700;
+                            font-size: 24px;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+
+        }
+    }

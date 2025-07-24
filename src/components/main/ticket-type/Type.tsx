@@ -1,5 +1,6 @@
 import single from '@assets/type/single.svg'
 import couple from '@assets/type/couple.svg'
+import './type.scss'
 const Type = () => {
   return (
     <div className="t-container">

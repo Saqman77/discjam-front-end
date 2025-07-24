@@ -3,6 +3,7 @@ import PreScreen from "./prescreen/PreScreen"
 import { useState, useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap'
+import Type from "./ticket-type/Type";
 
 const SESSION_KEY = 'prescreenHidden';
 
@@ -52,6 +53,7 @@ const Home = () => {
         </div>
       )}
       {!hidden && <PreScreen clicked={clicked} />}
+      <Type/>
     </div>
   )
 }
