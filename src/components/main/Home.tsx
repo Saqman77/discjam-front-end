@@ -10,7 +10,9 @@ const SESSION_KEY = 'prescreenHidden';
 const Home = () => {
   const [clicked, setClicked] = useState(false)
   const [hidden, setHidden] = useState(() => sessionStorage.getItem(SESSION_KEY) === 'true');
+  const [showType, setShowType] = useState(false); // NEW
   const ctaRef = useRef<HTMLDivElement>(null)
+  const typeRef = useRef<HTMLDivElement>(null); // NEW
 
   useGSAP(() => {
     if (clicked && !hidden) {
@@ -33,6 +35,19 @@ const Home = () => {
     } 
   }, [clicked, hidden]);
 
+  // Animate Type in after hidden becomes true (i.e., after cta+prescreen done)
+  useGSAP(() => {
+    if (hidden) {
+      setShowType(true); // Mount Type
+      // Animate in after a tick to ensure it's mounted
+      setTimeout(() => {
+        if (typeRef.current) {
+          gsap.fromTo(typeRef.current, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.out' });
+        }
+      }, 0);
+    }
+  }, [hidden]);
+
   // Set pointer-events based on clicked
   useEffect(() => {
     if (ctaRef.current) {
@@ -53,7 +68,11 @@ const Home = () => {
         </div>
       )}
       {!hidden && <PreScreen clicked={clicked} />}
-      <Type/>
+      {showType && (
+        <div ref={typeRef} style={{ opacity: 0 }}>
+          <Type/>
+        </div>
+      )}
     </div>
   )
 }
