@@ -66,12 +66,13 @@ const Form = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="submit">
+                       
+                    </div>
+                    <div className="submit">
                             <button type="submit" className='submit-button' >
                                 continue
                             </button>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
