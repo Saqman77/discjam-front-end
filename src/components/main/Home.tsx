@@ -6,6 +6,7 @@ import { gsap } from 'gsap'
 import Type from "./ticket-type/Type";
 import { RegistrationProvider } from "./RegistrationContext";
 import Form from "./form/Form";
+import Couple from "./couple/Couple";
 
 const SESSION_KEY = 'prescreenHidden';
 
@@ -73,8 +74,8 @@ const Home = () => {
         {!hidden && <PreScreen clicked={clicked} />}
         {showType && (
           <div ref={typeRef} style={{ opacity: 0 }}>
-            {/* <Type /> */}
-            <Form/>
+            <Type />
+            {/* <Couple/> */}
           </div>
         )}
       </div>

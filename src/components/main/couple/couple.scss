@@ -1,0 +1,949 @@
+@use "@styles/utils/variables.scss" as *;
+
+.c-container {
+    width: 100%;
+    height: 100%;
+    min-height: 100svh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 80px 80px;
+    background: linear-gradient(90deg,
+            rgba(14, 14, 14, 0.5) 0%,
+            rgba(0, 0, 0, 0.212) 100%);
+    backdrop-filter: blur(5px);
+
+    .c-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        @media screen and (max-width:1250px) {
+            flex-direction: column;
+        }
+
+        .l-content {
+            width: 100%;
+            flex: 1;
+
+            .heading {
+                margin-bottom: 24px;
+
+                h2 {
+                    font-size: clamp(28px, 2.08vw, 50px);
+                    font-weight: 700;
+                    font-family: $font-body;
+                    color: $primary;
+                }
+            }
+
+            .desc {
+                p {
+                    font-size: 16px;
+                    font-weight: 700;
+                    font-family: $font-body;
+                    color: $text-muted;
+
+                    span {
+                        display: inline-block;
+                        margin-bottom: 12px;
+                        line-height: 1.2;
+                    }
+
+                    .space {
+                        display: inline-block;
+                        width: 100%;
+                        height: 20px;
+                    }
+                }
+            }
+        }
+
+        .r-content {
+            width: 100%;
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+
+            .c-form-wrapper {
+                display: flex;
+                width: 100%;
+                flex: 1;
+                .form-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    width: fit-content;
+                    width: 100%;
+                    height: auto;
+                    max-width: 500px;
+                    max-height: 1000px;
+                    margin-left: auto;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 30px;
+                    padding: 2px; // Border thickness
+                    &:first-child{
+                        margin-right: 40px;
+                        margin-left: auto;
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        border-radius: inherit;
+                        padding: 3px; // Border thickness
+                        background: linear-gradient(135deg, rgb(217 217 217 / 92%), #525252 20%, #525252 40%, #525252 60%, #525252 100%);
+                        -webkit-mask:
+                            linear-gradient(#fff 0 0) content-box,
+                            linear-gradient(#fff 0 0);
+                        -webkit-mask-composite: xor;
+                        mask-composite: exclude;
+                        pointer-events: none;
+                    }
+
+                    .form {
+                        position: relative;
+                        z-index: 1;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        background-color: $background;
+                        padding: 32px;
+                        border-radius: 30px;
+                        flex: 1;
+                        box-shadow: inset 5px 8px 8px 0px rgb(119 119 119 / 20%);
+
+                        .form-header {
+                            width: 100%;
+                            height: auto;
+                            display: flex;
+                            flex-direction: column;
+                            margin-bottom: 20px;
+
+                            h3 {
+                                font-size: clamp(26px, 1.875vw, 46px);
+                                font-weight: 300;
+                                font-family: $font-primary;
+                                color: $primary;
+                                margin-bottom: 16px;
+                            }
+
+                            p {
+                                font-size: 16px;
+                                font-weight: 500;
+                                font-family: $font-body;
+                                color: $text-muted;
+                            }
+                        }
+
+                        .field-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
+                            height: fit-content;
+                            margin-bottom: 20px;
+
+                            .input-wrapper {
+                                width: 100%;
+                                height: 40px;
+                                position: relative;
+                                margin-bottom: 12px;
+                                overflow: hidden;
+                                border-radius: 12px;
+                                box-shadow: inset 2px 4px 8px 1px #494949e8;
+                                backdrop-filter: blur(35px);
+                                filter: brightness(1.5) contrast(1.5);
+
+                                // Pseudo-element for background blur effect
+                                &::before {
+                                    content: '';
+                                    position: absolute;
+                                    inset: 0;
+                                    background: linear-gradient(180deg, rgb(82 82 82 / 64%) 73%, rgb(78 252 0) 71%);
+                                    filter: blur(20px);
+                                    z-index: 0;
+                                }
+
+                                input {
+                                    all: unset;
+                                    position: relative;
+                                    z-index: 1;
+                                    height: 100%;
+                                    width: 100%;
+                                    color: $primary; // Ensure text color stands out
+                                    padding: 0 10px;
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                }
+
+                                img {
+                                    width: 20px;
+                                    height: 20px;
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 12px;
+                                    transform: translateY(-50%);
+                                }
+                            }
+
+                        }
+
+                        .up-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
+                            height: 100%;
+
+                            p {
+                                font-size: 16px;
+                                text-align: center;
+                                color: $text-muted;
+                                margin-bottom: 20px;
+                            }
+
+                            .cnic-upload {
+                                height: 160px;
+                                width: 100%;
+                                border: 1px solid $text-muted;
+                                border-radius: 20px;
+                                overflow: hidden;
+                                position: relative;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                // gap: 16px;
+                                -webkit-tap-highlight-color: transparent;
+
+                                input[type="file"] {
+                                    opacity: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    cursor: pointer;
+                                    z-index: 2;
+                                    display: flex;
+                                }
+
+                                .upload-label,
+                                .upload-label.success {
+                                    width: auto;
+                                    // min-width: 120px;
+                                    // max-width: 220px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background: $primary;
+                                    color: $background;
+                                    padding: 12px 12px;
+                                    border-radius: 8px;
+                                    font-weight: 500;
+                                    font-size: 16px;
+                                    cursor: pointer;
+                                    z-index: 1;
+                                    transition: background 0.2s;
+                                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                                    text-align: center;
+                                    margin: 0;
+                                }
+
+                                .upload-label.success {
+                                    background: #27ae5f00;
+                                    color: #fff;
+                                    // box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15);
+                                }
+
+                                .upload-label.reupload {
+                                    background: $primary;
+                                    color: $background;
+                                    box-shadow: 0 2px 8px rgba(230, 126, 34, 0.15);
+                                    width: max-content;
+                                    padding: 12px 20px;
+                                }
+
+                                // Flex row for two buttons
+                                .upload-label-row {
+                                    width: 100%;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    // gap: 16px;
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+            .submit {
+                width: fit-content;
+                height: fit-content;
+                margin-left: auto;
+                margin-top: 24px;
+
+                .submit-button {
+                    padding: 16px 20px;
+                    font-size: 36px;
+                    background-color: $background-modal;
+                    font-family: $font-primary;
+                    border-radius: 12px;
+                    color: $primary;
+                    border: 1px solid $text-muted;
+                }
+            }
+        }
+    }
+}
+
+.gender-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: $primary;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(2px);
+    cursor: pointer;
+    margin-bottom: 1rem;
+    font-weight: 700;
+
+    &:focus {
+        border: 1.5px solid $primary;
+        box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+    }
+
+    option {
+        background: $background;
+        color: $primary;
+        font-weight: 700;
+    }
+}
+
+@media screen and (max-width:1250px) {
+    .c-container {
+        width: 100%;
+        height: 100%;
+        min-height: 100svh;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 40px 80px;
+        background: linear-gradient(90deg, rgb(14 14 14) 0%, rgb(0 0 0 / 62%) 100%);
+        backdrop-filter: blur(5px);
+
+        .c-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+
+            flex-direction: column;
+
+            .l-content {
+                width: 100%;
+                flex: 1;
+                margin-bottom: 40px;
+
+                .heading {
+                    margin-bottom: 24px;
+
+                    h2 {
+                        font-size: 24px;
+                        font-weight: 700;
+                        font-family: $font-body;
+                        color: $primary;
+                    }
+                }
+
+                .desc {
+                    p {
+                        font-size: 16px;
+                        font-weight: 700;
+                        font-family: $font-body;
+                        color: $text-muted;
+                    }
+                }
+            }
+
+            .r-content {
+                width: 100%;
+                flex: 1;
+
+                .c-form-wrapper {
+                    display: flex;
+                    flex-direction: column;
+
+
+
+                    .form-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        width: fit-content;
+                        width: 100%;
+                        height: auto;
+                        max-width: 500px;
+                        max-height: 1000px;
+                        margin-left: auto;
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 20px;
+                        padding: 2px; // Border thickness
+
+                        &:first-child {
+                            margin-bottom: 40px;
+                            margin-right: 0;
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            border-radius: inherit;
+                            padding: 3px; // Border thickness
+                            background: linear-gradient(135deg, rgb(217 217 217 / 92%), #525252 20%, #525252 40%, #525252 60%, #525252 100%);
+                            -webkit-mask:
+                                linear-gradient(#fff 0 0) content-box,
+                                linear-gradient(#fff 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            pointer-events: none;
+                        }
+
+                        .form {
+                            position: relative;
+                            z-index: 1;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            background-color: $background;
+                            padding: 20px;
+                            border-radius: 20px;
+                            flex: 1;
+                            box-shadow: inset 5px 8px 8px 0px rgb(119 119 119 / 20%);
+
+                            .form-header {
+                                width: 100%;
+                                height: auto;
+                                display: flex;
+                                flex-direction: column;
+                                margin-bottom: 20px;
+
+                                h3 {
+                                    font-size: 24px;
+                                    font-weight: 300;
+                                    font-family: $font-primary;
+                                    color: $primary;
+                                    margin-bottom: 16px;
+                                }
+
+                                p {
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                    font-family: $font-body;
+                                    color: $text-muted;
+                                }
+                            }
+
+                            .field-wrapper {
+                                display: flex;
+                                flex-direction: column;
+                                width: 100%;
+                                height: fit-content;
+                                margin-bottom: 20px;
+
+                                .input-wrapper {
+                                    width: 100%;
+                                    height: 40px;
+                                    position: relative;
+                                    margin-bottom: 12px;
+                                    overflow: hidden;
+                                    border-radius: 12px;
+                                    box-shadow: inset 2px 4px 8px 1px #494949e8;
+                                    backdrop-filter: blur(35px);
+                                    filter: brightness(1.5) contrast(1.5);
+
+                                    // Pseudo-element for background blur effect
+                                    &::before {
+                                        content: '';
+                                        position: absolute;
+                                        inset: 0;
+                                        background: linear-gradient(180deg, rgb(82 82 82 / 64%) 73%, rgb(78 252 0) 71%);
+                                        filter: blur(20px);
+                                        z-index: 0;
+                                    }
+
+                                    input {
+                                        all: unset;
+                                        position: relative;
+                                        z-index: 1;
+                                        height: 100%;
+                                        width: 100%;
+                                        color: $primary; // Ensure text color stands out
+                                        padding: 0 10px;
+                                        font-size: 16px;
+                                        font-weight: 700;
+                                    }
+
+                                    img {
+                                        width: 20px;
+                                        height: 20px;
+                                        position: absolute;
+                                        top: 50%;
+                                        right: 12px;
+                                        transform: translateY(-50%);
+                                    }
+                                }
+
+                            }
+
+                            .up-wrapper {
+                                display: flex;
+                                flex-direction: column;
+                                width: 100%;
+                                height: 100%;
+
+                                p {
+                                    font-size: 16px;
+                                    text-align: center;
+                                    color: $text-muted;
+                                    margin-bottom: 20px;
+                                }
+
+                                .cnic-upload {
+                                    height: 120px;
+                                    width: 100%;
+                                    border: 1px solid $text-muted;
+                                    border-radius: 20px;
+                                    overflow: hidden;
+                                    position: relative;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    // gap: 16px;
+                                    -webkit-tap-highlight-color: transparent;
+
+                                    input[type="file"] {
+                                        opacity: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: absolute;
+                                        left: 0;
+                                        top: 0;
+                                        cursor: pointer;
+                                        z-index: 2;
+                                        display: flex;
+                                    }
+
+                                    .upload-label,
+                                    .upload-label.success {
+                                        // width: 100%;
+                                        // min-width: 120px;
+                                        // max-width: 220px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background: $primary;
+                                        color: $background;
+                                        // padding: 12px 0;
+                                        border-radius: 8px;
+                                        font-weight: 500;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                        z-index: 1;
+                                        transition: background 0.2s;
+                                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                                        text-align: center;
+                                        margin: 0;
+                                    }
+
+                                    .upload-label.success {
+                                        background: #27ae5f00;
+                                        color: #fff;
+                                        // box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15);
+                                    }
+
+                                    .upload-label.reupload {
+                                        background: $primary;
+                                        color: $background;
+                                        box-shadow: 0 2px 8px rgba(230, 126, 34, 0.15);
+                                        width: max-content;
+                                        padding: 12px 20px;
+                                    }
+
+                                    // Flex row for two buttons
+                                    .upload-label-row {
+                                        width: 100%;
+                                        display: flex;
+                                        flex-direction: column;
+                                        justify-content: center;
+                                        align-items: center;
+                                        // gap: 16px;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                .submit {
+                    width: fit-content;
+                    height: fit-content;
+
+                    .submit-button {
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+    }
+
+    .gender-select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: $primary;
+        // font-size: 1rem;
+        outline: none;
+        transition: border 0.2s, box-shadow 0.2s;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        backdrop-filter: blur(2px);
+        cursor: pointer;
+        margin-bottom: 1rem;
+        font-weight: 700;
+
+        &:focus {
+            border: 1.5px solid $primary;
+            box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+        }
+
+        option {
+            background: $background;
+            color: $primary;
+            font-weight: 700;
+        }
+    }
+}
+
+@media screen and (max-width:768px) {
+    .c-container {
+        width: 100%;
+        height: 100%;
+        min-height: 100svh;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 20px 80px;
+        background: linear-gradient(90deg, rgb(14 14 14) 0%, rgb(0 0 0 / 75%) 100%);
+        backdrop-filter: blur(5px);
+
+        .c-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+
+            flex-direction: column;
+
+            .l-content {
+                width: 100%;
+                flex: 1;
+
+                .heading {
+                    margin-bottom: 24px;
+
+                    h2 {
+                        font-size: 24px;
+                        font-weight: 700;
+                        font-family: $font-body;
+                        color: $primary;
+                    }
+                }
+
+                .desc {
+                    p {
+                        font-size: 16px;
+                        font-weight: 700;
+                        font-family: $font-body;
+                        color: $text-muted;
+                    }
+                }
+            }
+
+            .r-content {
+                width: 100%;
+                flex: 1;
+
+                .c-form-wrapper {
+                    .form-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        width: fit-content;
+                        width: 100%;
+                        height: auto;
+                        max-width: 500px;
+                        max-height: 1000px;
+                        margin-left: auto;
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 20px;
+                        padding: 2px; // Border thickness
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            border-radius: inherit;
+                            padding: 3px; // Border thickness
+                            background: linear-gradient(135deg, rgb(217 217 217 / 92%), #525252 20%, #525252 40%, #525252 60%, #525252 100%);
+                            -webkit-mask:
+                                linear-gradient(#fff 0 0) content-box,
+                                linear-gradient(#fff 0 0);
+                            -webkit-mask-composite: xor;
+                            mask-composite: exclude;
+                            pointer-events: none;
+                        }
+
+                        .form {
+                            position: relative;
+                            z-index: 1;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            background-color: $background;
+                            padding: 20px;
+                            border-radius: 20px;
+                            flex: 1;
+                            box-shadow: inset 5px 8px 8px 0px rgb(119 119 119 / 20%);
+
+                            .form-header {
+                                width: 100%;
+                                height: auto;
+                                display: flex;
+                                flex-direction: column;
+                                margin-bottom: 20px;
+
+                                h3 {
+                                    font-size: 24px;
+                                    font-weight: 300;
+                                    font-family: $font-primary;
+                                    color: $primary;
+                                    margin-bottom: 16px;
+                                }
+
+                                p {
+                                    font-size: 14px;
+                                    font-weight: 500;
+                                    font-family: $font-body;
+                                    color: $text-muted;
+                                }
+                            }
+
+                            .field-wrapper {
+                                display: flex;
+                                flex-direction: column;
+                                width: 100%;
+                                height: fit-content;
+                                margin-bottom: 20px;
+
+                                .input-wrapper {
+                                    width: 100%;
+                                    height: 40px;
+                                    position: relative;
+                                    margin-bottom: 12px;
+                                    overflow: hidden;
+                                    border-radius: 12px;
+                                    box-shadow: inset 2px 4px 8px 1px #494949e8;
+                                    backdrop-filter: blur(35px);
+                                    filter: brightness(1.5) contrast(1.5);
+
+                                    // Pseudo-element for background blur effect
+                                    &::before {
+                                        content: '';
+                                        position: absolute;
+                                        inset: 0;
+                                        background: linear-gradient(180deg, rgb(82 82 82 / 64%) 73%, rgb(78 252 0) 71%);
+                                        filter: blur(20px);
+                                        z-index: 0;
+                                    }
+
+                                    input {
+                                        all: unset;
+                                        position: relative;
+                                        z-index: 1;
+                                        height: 100%;
+                                        width: 100%;
+                                        color: $primary; // Ensure text color stands out
+                                        padding: 0 10px;
+                                        font-size: 16px;
+                                        font-weight: 700;
+                                    }
+
+                                    img {
+                                        width: 20px;
+                                        height: 20px;
+                                        position: absolute;
+                                        top: 50%;
+                                        right: 12px;
+                                        transform: translateY(-50%);
+                                    }
+                                }
+
+                            }
+
+                            .up-wrapper {
+                                display: flex;
+                                flex-direction: column;
+                                width: 100%;
+                                height: 100%;
+
+                                p {
+                                    font-size: 16px;
+                                    text-align: center;
+                                    color: $text-muted;
+                                    margin-bottom: 20px;
+                                }
+
+                                .cnic-upload {
+                                    // height: 100px;
+                                    width: 100%;
+                                    border: 1px solid $text-muted;
+                                    border-radius: 20px;
+                                    overflow: hidden;
+                                    position: relative;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    // gap: 16px;
+                                    -webkit-tap-highlight-color: transparent;
+
+                                    input[type="file"] {
+                                        opacity: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: absolute;
+                                        left: 0;
+                                        top: 0;
+                                        cursor: pointer;
+                                        z-index: 2;
+                                        display: flex;
+                                    }
+
+                                    .upload-label,
+                                    .upload-label.success {
+                                        // width: 100%;
+                                        // min-width: 120px;
+                                        // max-width: 220px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background: $primary;
+                                        color: $background;
+                                        // padding: 12px 0;
+                                        border-radius: 8px;
+                                        font-weight: 500;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                        z-index: 1;
+                                        transition: background 0.2s;
+                                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                                        text-align: center;
+                                        margin: 0;
+                                    }
+
+                                    .upload-label.success {
+                                        background: #27ae5f00;
+                                        color: #fff;
+                                        // box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15);
+                                    }
+
+                                    .upload-label.reupload {
+                                        background: $primary;
+                                        color: $background;
+                                        box-shadow: 0 2px 8px rgba(230, 126, 34, 0.15);
+                                        width: max-content;
+                                        padding: 12px 20px;
+                                    }
+
+                                    // Flex row for two buttons
+                                    .upload-label-row {
+                                        width: 100%;
+                                        display: flex;
+                                        flex-direction: column;
+                                        justify-content: center;
+                                        align-items: center;
+                                        // gap: 16px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .submit {
+                            width: fit-content;
+                            height: fit-content;
+
+                            .submit-button {
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .gender-select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: $primary;
+        // font-size: 1rem;
+        outline: none;
+        transition: border 0.2s, box-shadow 0.2s;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        backdrop-filter: blur(2px);
+        cursor: pointer;
+        margin-bottom: 1rem;
+        font-weight: 700;
+
+        &:focus {
+            border: 1.5px solid $primary;
+            box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+        }
+
+        option {
+            background: $background;
+            color: $primary;
+            font-weight: 700;
+        }
+    }
+}
