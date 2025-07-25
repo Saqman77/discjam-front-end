@@ -43,7 +43,6 @@ export function registrationReducer(
     action: RegistrationAction
 ): RegistrationContext {
     switch (action.type) {
-        case: 
         default:
             return state;
     }
