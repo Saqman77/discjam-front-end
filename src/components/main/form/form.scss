@@ -177,18 +177,76 @@
                             margin-bottom: 20px;
                         }
 
-                        .cnic-upload{
+                        .cnic-upload {
                             height: 160px;
                             width: 100%;
                             border: 1px solid $text-muted;
                             border-radius: 20px;
                             overflow: hidden;
-                            input *{
-                                all: unset;
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            // gap: 16px;
+                            -webkit-tap-highlight-color: transparent;
+
+                            input[type="file"] {
+                                opacity: 0;
                                 width: 100%;
                                 height: 100%;
-                                background-color: #fff;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                cursor: pointer;
+                                z-index: 2;
+                                display: flex;
+                            }
 
+                            .upload-label,
+                            .upload-label.success
+                             {
+                                width: 100%;
+                                // min-width: 120px;
+                                // max-width: 220px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                background: $primary;
+                                color: $background;
+                                padding: 12px 0;
+                                border-radius: 8px;
+                                font-weight: 500;
+                                font-size: 16px;
+                                cursor: pointer;
+                                z-index: 1;
+                                transition: background 0.2s;
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                                text-align: center;
+                                margin: 0;
+                            }
+
+                            .upload-label.success {
+                                background: #27ae5f00;
+                                color: #fff;
+                                // box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15);
+                            }
+                            .upload-label.reupload {
+                                background: $primary;
+                                color: $background;
+                                box-shadow: 0 2px 8px rgba(230, 126, 34, 0.15);
+                                width: max-content;
+                                padding: 12px 20px;
+                            }
+
+                            // Flex row for two buttons
+                            .upload-label-row {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                // gap: 16px;
                             }
                         }
                     }
@@ -208,27 +266,34 @@
     }
 }
 
-@keyframes borderShine {
-    0% {
-        background-position: -150% -150%;
-        opacity: 0;
-    }
+.gender-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: $primary;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: 700;
 
-    25% {
-        opacity: 1;
-    }
+  &:focus {
+    border: 1.5px solid $primary;
+    box-shadow: 0 0 0 2px rgba(108,99,255,0.15);
+  }
 
-    50% {
-        background-position: 0% 0%;
-        opacity: 1;
-    }
-
-    75% {
-        opacity: 1;
-    }
-
-    100% {
-        background-position: 150% 150%;
-        opacity: 0;
-    }
+  option {
+    background: $background;
+    color: $primary;
+    font-weight: 700;
+  }
 }
+
