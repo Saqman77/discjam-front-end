@@ -25,14 +25,15 @@ export type RegistrationAction =
     } 
     | {
         type: 'SET_TICKET_TYPE',
-        ticketType: string,
-    };
+        ticketType: 'couple' | 'single',
+    }
+    | { type: 'INIT' };
 
-export function RegistrationInitializer (): RegistrationContext {
+export function registrationInitializer (): RegistrationContext {
     const initialData: RegistrationContext = {
         step: 1,
         ticketType: "single",
-        attendees: [],
+        attendees: [{}],
         primaryAttendeeIndex: 0,
     }
     return initialData;
@@ -43,6 +44,32 @@ export function registrationReducer(
     action: RegistrationAction
 ): RegistrationContext {
     switch (action.type) {
+        case 'SET_STEP_NUMBER': {
+            return {
+                ...state,
+                step: action.stepNumber,
+            }
+        } 
+        case 'SET_TICKET_TYPE': {
+            const newAttendeesInfo = [];
+            if (action.ticketType === 'couple') {
+                state.attendees.forEach((attendee) => newAttendeesInfo.push(attendee));
+                if (state.ticketType === 'single') {
+                    newAttendeesInfo.push({});
+                }
+            } else {
+                newAttendeesInfo.push(state.attendees[0])
+            }
+            return {
+                ...state,
+                step: 1,
+                ticketType: action.ticketType,
+                attendees: newAttendeesInfo,
+            }
+        }
+        case 'INIT': {
+            return registrationInitializer();
+        }
         default:
             return state;
     }

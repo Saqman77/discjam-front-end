@@ -1,0 +1,68 @@
+@use "@styles/utils/variables.scss" as *;
+.f-container{
+    width: 100%;
+    height: 100%;
+    min-height: 100svh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6.45vw 10.42vw 4.12vw;
+    background: linear-gradient(90deg,
+            rgba(14, 14, 14, 0.5) 0%,
+            rgba(0, 0, 0, 0.212) 100%);
+    backdrop-filter: blur(5px);
+    .f-wrapper{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        .l-content{
+            width: 100%;
+            flex: 1;
+            .heading{
+                margin-bottom: 24px;
+                h2{
+                    font-size: clamp(28px, 2.08vw, 50px);
+                    font-weight: 700;
+                    font-family: $font-body;
+                    color: $primary;
+                }
+            }
+            .desc{
+                p{
+                    font-size: 16px;
+                    font-weight: 700;
+                    font-family: $font-body;
+                    color: $text-muted;
+                }
+            }
+        }
+        .r-content{
+            width: 100%;
+            flex: 1;
+
+            .form-wrapper{
+                display: flex;
+                flex-direction: column;
+                width: fit-content;
+                height: fit-content;
+                margin-left: auto;
+                .form{
+                    width: 500px;
+                    height: 700px;
+                    display: flex;
+                    flex-direction: column;
+                    background-color: aliceblue;
+                }
+                .submit{
+                    width: fit-content;
+                    height: fit-content;
+                    .submit-button{
+                        width: 250px;
+                        height: 65px;
+                    }
+                }
+            }
+        }
+    }
+}

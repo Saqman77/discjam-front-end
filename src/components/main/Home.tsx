@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap'
 import Type from "./ticket-type/Type";
+import { RegistrationProvider } from "./RegistrationContext";
+import Form from "./form/Form";
 
 const SESSION_KEY = 'prescreenHidden';
 
@@ -61,19 +63,22 @@ const Home = () => {
   }
 
   return (
-    <div className="main-container">
-      {!hidden && (
-        <div className="cta-container" ref={ctaRef}>
-          <MainCta onClick={clicker} />
-        </div>
-      )}
-      {!hidden && <PreScreen clicked={clicked} />}
-      {showType && (
-        <div ref={typeRef} style={{ opacity: 0 }}>
-          <Type/>
-        </div>
-      )}
-    </div>
+    <RegistrationProvider>
+      <div className="main-container">
+        {!hidden && (
+          <div className="cta-container" ref={ctaRef}>
+            <MainCta onClick={clicker} />
+          </div>
+        )}
+        {!hidden && <PreScreen clicked={clicked} />}
+        {showType && (
+          <div ref={typeRef} style={{ opacity: 0 }}>
+            {/* <Type /> */}
+            <Form/>
+          </div>
+        )}
+      </div>
+    </RegistrationProvider>
   )
 }
 

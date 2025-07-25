@@ -1,7 +1,18 @@
 import single from '@assets/type/single.svg'
 import couple from '@assets/type/couple.svg'
 import './type.scss'
+import { useRegistrationContext } from '../RegistrationContext'
+import { useMemo } from 'react'
+
 const Type = () => {
+    const {state, dispatch} = useRegistrationContext();
+    const {ticketType} = useMemo(() => {
+        return state;
+    }, [state]);
+
+    const handleTicketTypeChange = (ticketType: 'couple' | 'single') => {
+        dispatch({type: 'SET_TICKET_TYPE', ticketType: ticketType})
+    }
   return (
     <div className="t-container">
         <div className="t-header">
