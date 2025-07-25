@@ -55,9 +55,9 @@
                 flex-direction: column;
                 width: fit-content;
                 width: 100%;
-                height: 100%;
+                height: auto;
                 max-width: 500px;
-                max-height: 700px;
+                max-height: 1000px;
                 margin-left: auto;
                 position: relative;
                 overflow: hidden;
@@ -119,7 +119,7 @@
                         flex-direction: column;
                         width: 100%;
                         height: fit-content;
-                       
+                       margin-bottom: 20px;
                         .input-wrapper {
                             width: 100%;
                             height: 40px;
@@ -147,12 +147,42 @@
                                 z-index: 1;
                                 height: 100%;
                                 width: 100%;
-                                color: white; // Ensure text color stands out
+                                color: $primary; // Ensure text color stands out
                                 padding: 0 10px;
                                 font-size: 16px;
+                                font-weight: 700;
+                            }
+
+                            img{
+                                width: 20px;
+                                height: 20px;
+                                position: absolute;
+                                top: 50%;
+                                right: 12px;
+                                transform: translateY(-50%);
                             }
                         }
-                        
+
+                    }
+
+                    .up-wrapper{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: 100%;
+                        p{
+                            font-size: 16px;
+                            text-align: center;
+                            color: $text-muted;
+                            margin-bottom: 20px;
+                        }
+
+                        .cnic-upload{
+                            height: 160px;
+                            width: 100%;
+                            border: 1px solid $text-muted;
+                            border-radius: 20px;
+                        }
                     }
                 }
 

@@ -1,3 +1,8 @@
+import mail from '@assets/form/mail.svg'
+import insta from '@assets/form/instagram.svg'
+import name from '@assets/form/name.svg'
+import nic from '@assets/form/nic.svg'
+import phone from '@assets/form/phone.svg'
 import './form.scss'
 
 const Form = () => {
@@ -35,34 +40,38 @@ const Form = () => {
                             </div>
                             <div className="field-wrapper">
                                 <div className="input-wrapper">
-                                    <input type="text" />
-                                    <img src="" alt="" />
+                                    <input type="text" placeholder='First name (important*)' />
+                                    <img src={name} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" />
-                                    <img src="" alt="" />
+                                    <input type="text" placeholder='Last name (important*)'/>
+                                    <img src={name} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" />
-                                    <img src="" alt="" />
+                                    <input type="text" placeholder='valid email (important*)'/>
+                                    <img src={mail} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" />
-                                    <img src="" alt="" />
+                                    <input type="text" placeholder='CNIC-number (important*)'/>
+                                    <img src={nic} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" />
-                                    <img src="" alt="" />
+                                    <input type="text" placeholder='whatsapp phone (important*)'/>
+                                    <img src={phone} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" />
-                                    <img src="" alt="" />
+                                    <input type="text" placeholder='instagram url (important*)'/>
+                                    <img src={insta} alt="" />
+                                </div>
+                                <div className="input-wrapper">
+                                    <input type="text" placeholder='reference (optional)'/>
+                                    <img src={name} alt="" />
                                 </div>
                             </div>
                             <div className='up-wrapper'>
                                 <p>Upload the front of your CNIC</p>
                                 <div className="cnic-upload">
-                                    <input type="image" accept="image/*" />
+                                    <input type="file" accept="image/*" />
                                 </div>
                             </div>
                         </div>
