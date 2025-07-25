@@ -7,6 +7,7 @@ import Type from "./ticket-type/Type";
 import { RegistrationProvider } from "./RegistrationContext";
 import Form from "./form/Form";
 import Couple from "./couple/Couple";
+import Primary from "./primary/primary";
 
 const SESSION_KEY = 'prescreenHidden';
 
@@ -74,8 +75,9 @@ const Home = () => {
         {!hidden && <PreScreen clicked={clicked} />}
         {showType && (
           <div ref={typeRef} style={{ opacity: 0 }}>
-            <Type />
+            {/* <Type /> */}
             {/* <Couple/> */}
+            <Primary/>
           </div>
         )}
       </div>
