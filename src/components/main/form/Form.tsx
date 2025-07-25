@@ -33,17 +33,19 @@ const Form = () => {
                     </div>
                     <div className="desc">
                         <p>
-                            06th Jan 2024
-                            Location: To the ticket holders only
 
-                            Before filling this form please note:
+                            <span>06th Jan 2024</span>
+                            <span>Location: To the ticket holders only</span>
+                            <span className='space'></span>
 
-                            - Filling out this registration form does not guarantee you a ticket/entry.
-                            - You must be over 18 with a valid CNIC / Passport / ID
-                            - CNIC / Passport / ID numbers are mandatory for every attendee.
-                            - If you are registering for a couple's ticket, you must enter together.
-                            - Forms with incomplete information will not be entertained.
-                            - Once you've filled out & submitted the form with your correct email & contact information, please wait and you'll hear back from us via email.
+                            <span>Before filling this form please note:</span>
+                            <span className='space'></span>
+                            <span>Filling out this registration form does not guarantee you a ticket/entry.</span>
+                            <span>You must be over 18 with a valid CNIC / Passport / ID</span>
+                            <span>CNIC / Passport / ID numbers are mandatory for every attendee.</span>
+                            <span>If you are registering for a couple's ticket, you must enter together.</span>
+                            <span>Forms with incomplete information will not be entertained.</span>
+                            <span>Once you've filled out & submitted the form with your correct email & contact information, please wait and you'll hear back from us via email.</span>
                         </p>
                     </div>
                 </div>
@@ -60,27 +62,27 @@ const Form = () => {
                                     <img src={name} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" placeholder='Last name (important*)'/>
+                                    <input type="text" placeholder='Last name (important*)' />
                                     <img src={name} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" placeholder='valid email (important*)'/>
+                                    <input type="text" placeholder='valid email (important*)' />
                                     <img src={mail} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" placeholder='CNIC-number (important*)'/>
+                                    <input type="text" placeholder='CNIC-number (important*)' />
                                     <img src={nic} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" placeholder='whatsapp phone (important*)'/>
+                                    <input type="text" placeholder='whatsapp phone (important*)' />
                                     <img src={phone} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" placeholder='instagram url (important*)'/>
+                                    <input type="text" placeholder='instagram url (important*)' />
                                     <img src={insta} alt="" />
                                 </div>
                                 <div className="input-wrapper">
-                                    <input type="text" placeholder='reference (optional)'/>
+                                    <input type="text" placeholder='reference (optional)' />
                                     <img src={name} alt="" />
                                 </div>
                             </div>
@@ -119,13 +121,13 @@ const Form = () => {
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div className="submit">
-                            <button type="submit" className='submit-button' >
-                                continue
-                            </button>
-                        </div>
+                        <button type="submit" className='submit-button' >
+                            continue
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
