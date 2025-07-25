@@ -95,6 +95,7 @@
                         display: flex;
                         flex-direction: column;
                         margin-bottom: 20px;
+
                         h3 {
                             font-size: clamp(26px, 1.875vw, 46px);
                             font-weight: 300;
@@ -109,6 +110,47 @@
                             font-family: $font-body;
                             color: $text-muted;
                         }
+                    }
+
+                    .field-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: fit-content;
+
+                        .input-wrapper {
+                            width: 100%;
+                            height: 40px;
+                            position: relative;
+                            margin-bottom: 12px;
+                            overflow: hidden;
+                            border-radius: 12px;
+                            box-shadow: inset 2px 4px 8px 1px #494949e8;
+                            backdrop-filter: blur(35px);
+                            filter: brightness(1.5) contrast(1.5);
+                        
+                            // Pseudo-element for background blur effect
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                inset: 0;
+                                background: linear-gradient(180deg, rgb(82 82 82 / 64%) 73%, rgb(78 252 0) 71%);
+                                filter: blur(20px);
+                                z-index: 0;
+                            }
+                        
+                            input {
+                                all: unset;
+                                position: relative;
+                                z-index: 1;
+                                height: 100%;
+                                width: 100%;
+                                color: white; // Ensure text color stands out
+                                padding: 0 10px;
+                                font-size: 16px;
+                            }
+                        }
+                        
                     }
                 }
 
