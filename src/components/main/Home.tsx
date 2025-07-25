@@ -75,8 +75,8 @@ const Home = () => {
         {!hidden && <PreScreen clicked={clicked} />}
         {showType && (
           <div ref={typeRef} style={{ opacity: 0 }}>
-            <Type />
-            {/* <Form/> */}
+            {/* <Type /> */}
+            <Form/>
             {/* <Couple/> */}
             {/* <Primary/> */}
           </div>
