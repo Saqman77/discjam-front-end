@@ -9,6 +9,7 @@ import Form from "./form/Form";
 import Couple from "./couple/Couple";
 import Primary from "./primary/primary";
 import Terms from "./t&c/Terms";
+import Succ from "./success/Succ";
 
 const SESSION_KEY = 'prescreenHidden';
 
@@ -80,7 +81,8 @@ const Home = () => {
             {/* <Form/> */}
             {/* <Couple/> */}
             {/* <Primary/> */}
-            <Terms/>
+            {/* <Terms/> */}
+            <Succ/>
           </div>
         )}
       </div>
