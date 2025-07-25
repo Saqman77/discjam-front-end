@@ -13,7 +13,7 @@ const SESSION_KEY = 'prescreenHidden';
 
 const Home = () => {
   const [clicked, setClicked] = useState(false)
-  const [hidden, setHidden] = useState(() => sessionStorage.getItem(SESSION_KEY) === 'false');
+  const [hidden, setHidden] = useState(() => sessionStorage.getItem(SESSION_KEY) === 'true');
   const [showType, setShowType] = useState(false); // NEW
   const ctaRef = useRef<HTMLDivElement>(null)
   const typeRef = useRef<HTMLDivElement>(null); // NEW
