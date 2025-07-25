@@ -1,4 +1,5 @@
 import './prescreen.scss'
+import  logo from '@assets/prescreen/logo.svg'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap'
@@ -27,10 +28,15 @@ const PreScreen = ({ clicked }: { clicked: boolean }) => {
         <div className="p-container" ref={preRef}>
             <div className="p-wrapper">
                 <div className="left" ref={lRef}>
-                    <div className="top"></div>
+                    <div className="top">
+                        <h1> SIGN U</h1>
+                    </div>
                 </div>
                 <div className="right" ref={rRef}>
-                    <div className="top"></div>
+                    <img src={logo} alt="" />
+                    <div className="top">
+                        <h1>P NOW</h1>
+                    </div>
                 </div>
             </div>
         </div>

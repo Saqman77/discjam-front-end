@@ -30,6 +30,16 @@
                 border-left: 3px solid $primary;
                 border-bottom: 3px solid $primary;
                 border-top: 3px solid $primary;
+                display: flex;
+                h1{
+                    font-size: 9vw;
+                    margin-left: auto;
+                    width: fit-content;
+                    height: fit-content;
+                    color: $primary;
+                    font-family: $font-primary;
+                    font-weight: 300;
+                }
             }
         }
 
@@ -40,7 +50,15 @@
             display: flex;
             flex-direction: column;
             justify-content: left;
+            position: relative;
             // will-change: transform;
+            img{
+                width: 130px;
+                height: auto;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
             .top{
                 width: 100%;
                 height: 38%;
@@ -51,7 +69,188 @@
                 border-right: 3px solid $primary;
                 border-bottom: 3px solid $primary;
                 border-top: 3px solid $primary;
+                display: flex;
+                h1{
+                    font-size: 9vw;
+                    margin-right: auto;
+                    width: fit-content;
+                    height: fit-content;
+                    color: $primary;
+                    font-family: $font-primary;
+                    font-weight: 300;
+                }
             }
         }
     }
+}
+
+@media screen and (max-width:1250px) {
+    .p-container {
+    width: 100%;
+    height: 100%;
+    // background-color: #1A1A1A;
+    display: grid;
+    grid-template-columns: auto;
+
+    .p-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        height: 100%;
+        .left {
+            background-color: #1A1A1A;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            // will-change: transform;
+            .top{
+                width: 100%;
+                height: 28%;
+                min-height: 200px;
+                max-height: 413px;
+                margin-bottom: auto;
+                background-color: #333333;
+                border-left: 3px solid $primary;
+                border-bottom: 3px solid $primary;
+                border-top: 3px solid $primary;
+                display: flex;
+                h1{
+                    font-size: 9vw;
+                    margin-left: auto;
+                    width: fit-content;
+                    height: fit-content;
+                    color: $primary;
+                    font-family: $font-primary;
+                    font-weight: 300;
+                }
+            }
+        }
+
+        .right {
+            background-color: #1A1A1A;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            position: relative;
+            // will-change: transform;
+            img{
+                width: 130px;
+                height: auto;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+            .top{
+                width: 100%;
+                height: 28%;
+                min-height: 200px;
+                max-height: 413px;
+                margin-bottom: auto;
+                background-color: #333333;
+                border-right: 3px solid $primary;
+                border-bottom: 3px solid $primary;
+                border-top: 3px solid $primary;
+                display: flex;
+                h1{
+                    font-size: 9vw;
+                    margin-right: auto;
+                    width: fit-content;
+                    height: fit-content;
+                    color: $primary;
+                    font-family: $font-primary;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+}
+}
+@media screen and (max-width:768px) {
+    .p-container {
+    width: 100%;
+    height: 100%;
+    // background-color: #1A1A1A;
+    display: grid;
+    grid-template-columns: auto;
+
+    .p-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        height: 100%;
+        .left {
+            background-color: #1A1A1A;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            // will-change: transform;
+            .top{
+                width: 100%;
+                height: 18%;
+                min-height: 100px;
+                max-height: 413px;
+                margin-bottom: auto;
+                background-color: #333333;
+                border-left: 3px solid $primary;
+                border-bottom: 3px solid $primary;
+                border-top: 3px solid $primary;
+                display: flex;
+                h1{
+                    font-size: 9vw;
+                    margin-left: auto;
+                    width: fit-content;
+                    height: fit-content;
+                    color: $primary;
+                    font-family: $font-primary;
+                    font-weight: 300;
+                }
+            }
+        }
+
+        .right {
+            background-color: #1A1A1A;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            position: relative;
+            // will-change: transform;
+            img{
+                width: 130px;
+                height: auto;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+            .top{
+                width: 100%;
+                height: 18%;
+                min-height: 100px;
+                max-height: 413px;
+                margin-bottom: auto;
+                background-color: #333333;
+                border-right: 3px solid $primary;
+                border-bottom: 3px solid $primary;
+                border-top: 3px solid $primary;
+                display: flex;
+                h1{
+                    font-size: 9vw;
+                    margin-right: auto;
+                    width: fit-content;
+                    height: fit-content;
+                    color: $primary;
+                    font-family: $font-primary;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+}
 }
