@@ -65,6 +65,7 @@
                 flex-direction: column;
                 border-radius: 12px;
                 margin-right: 24px;
+                transition: background-color 0.5s ease-in-out 0.5ms;
                 .center{
                     display: flex;
                     flex-direction: column;
@@ -77,10 +78,12 @@
                         width: 70px;
                         height: 70px;
                         margin-bottom: 16px;
+                        transition: filter 0.5s ease-in-out 0.5ms;
                         img{
                             width: 100%;
                             height: 100%;
                             object-fit: contain;
+                            transition: filter 0.5s ease-in-out 0.5ms;
                         }
                     }
                     .text{
@@ -88,12 +91,14 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        transition: filter 0.5s ease-in-out 0.5ms;
                         p{
                             color: $text-color;
                             font-family: $font-body;
                             font-weight: 700;
                             font-size: 24px;
                             text-align: center;
+                            transition: filter 0.5s ease-in-out 0.5ms;
                         }
                     }
                 }
@@ -101,12 +106,66 @@
                     display: flex;
                     justify-content: center;
                     margin-bottom: 120px;
+                    transition: filter 0.5s ease-in-out 0.5ms;
                     p{
                         font-family: $font-primary;
                         font-weight: 400;
                         color: $primary;
                         font-size: 40px;
                         text-align: center;
+                        transition: filter 0.5s ease-in-out 0.5ms;
+                    }
+                }
+                &:hover{
+                    background-color: $primary;
+                    .center{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: fit-content;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto;
+                        .icon{
+                            width: 70px;
+                            height: 70px;
+                            margin-bottom: 16px;
+                            filter: invert(1) brightness(0);
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: contain;  
+                                filter: invert(0) brightness(4.5);
+                            }
+                        }
+                        .text{
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            p{
+                                color: $text-color;
+                                font-family: $font-body;
+                                font-weight: 700;
+                                font-size: 24px;
+                                text-align: center;
+                                filter: invert(1) brightness(0);
+                            }
+                        }
+                    }
+                    .bottom{
+                        display: flex;
+                        justify-content: center;
+                        margin-bottom: 120px;
+                        filter: invert(1) brightness(0);
+                        p{
+                            font-family: $font-primary;
+                            font-weight: 400;
+                            color: $primary;
+                            font-size: 40px;
+                            text-align: center;
+                            filter: invert(0) brightness(4.5);
+                        }
                     }
                 }
             }
@@ -121,6 +180,7 @@
                 background-color: $background;
                 flex-direction: column;
                 border-radius: 12px;
+                transition: background-color 0.5s ease-in-out 0.5ms;
                 .center{
                     display: flex;
                     flex-direction: column;
@@ -133,10 +193,12 @@
                         width: 80px;
                         height: 70px;
                         margin-bottom: 16px;
+                        transition: filter 0.5s ease-in-out 0.5ms;
                         img{
                             width: 100%;
                             height: 100%;
                             object-fit: contain;
+                            transition: filter 0.5s ease-in-out 0.5ms;
                         }
                     }
                     .text{
@@ -150,6 +212,7 @@
                             font-weight: 700;
                             font-size: 24px;
                             text-align: center;
+                            transition: filter 0.5s ease-in-out 0.5ms;
                         }
                     }
                 }
@@ -157,12 +220,66 @@
                     display: flex;
                     justify-content: center;
                     margin-bottom: 120px;
+                    transition: filter 0.5s ease-in-out 0.5ms;
                     p{
                         font-family: $font-primary;
                         font-weight: 400;
                         color: $primary;
                         font-size: 40px;
                         text-align: center;
+                        transition: filter 0.5s ease-in-out 0.5ms;
+                    }
+                }
+                &:hover{
+                    background-color: $primary;
+                    .center{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: fit-content;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto;
+                        .icon{
+                            width: 80px;
+                            height: 70px;
+                            margin-bottom: 16px;
+                            filter: invert(1) brightness(0);
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: contain;  
+                                filter: invert(0) brightness(4.5);
+                            }
+                        }
+                        .text{
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            p{
+                                color: $text-color;
+                                font-family: $font-body;
+                                font-weight: 700;
+                                font-size: 24px;
+                                text-align: center;
+                                filter: invert(1) brightness(0);
+                            }
+                        }
+                    }
+                    .bottom{
+                        display: flex;
+                        justify-content: center;
+                        margin-bottom: 120px;
+                        filter: invert(1) brightness(0);
+                        p{
+                            font-family: $font-primary;
+                            font-weight: 400;
+                            color: $primary;
+                            font-size: 40px;
+                            text-align: center;
+                            filter: invert(0) brightness(4.5);
+                        }
                     }
                 }
             }
