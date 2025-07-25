@@ -8,6 +8,7 @@ import { RegistrationProvider } from "./RegistrationContext";
 import Form from "./form/Form";
 import Couple from "./couple/Couple";
 import Primary from "./primary/primary";
+import Terms from "./t&c/Terms";
 
 const SESSION_KEY = 'prescreenHidden';
 
@@ -76,9 +77,10 @@ const Home = () => {
         {showType && (
           <div ref={typeRef} style={{ opacity: 0 }}>
             {/* <Type /> */}
-            <Form/>
+            {/* <Form/> */}
             {/* <Couple/> */}
             {/* <Primary/> */}
+            <Terms/>
           </div>
         )}
       </div>
