@@ -2,19 +2,28 @@ import single from '@assets/type/single.svg'
 import couple from '@assets/type/couple.svg'
 import './type.scss'
 import { useRegistrationContext } from '../RegistrationContext'
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
+import { gsap } from 'gsap'
 
 const Type = () => {
     const {state, dispatch} = useRegistrationContext();
     const {ticketType} = useMemo(() => {
         return state;
     }, [state]);
-
-    const handleTicketTypeChange = (ticketType: 'couple' | 'single') => {
-        dispatch({type: 'SET_TICKET_TYPE', ticketType: ticketType})
+    const containerRef = useRef<HTMLDivElement>(null);
+    const handleTicketTypeChange = (type: 'couple' | 'single') => {
+        if (!containerRef.current) return;
+        gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.5,
+            onComplete: () => {
+                dispatch({type: 'SET_TICKET_TYPE', ticketType: type});
+                dispatch({type: 'SET_STEP_NUMBER', stepNumber: 2});
+            }
+        });
     }
   return (
-    <div className="t-container">
+    <div className="t-container" ref={containerRef}>
         <div className="t-header">
             <div className="t-heading">
                 <h1>SELECT THE TYPE OF PASS</h1>
@@ -26,7 +35,7 @@ const Type = () => {
             </div>
         </div>
         <div className="t-wrapper">
-            <div className="l-box">
+            <div className="l-box" onClick={() => handleTicketTypeChange('single')} style={{cursor:'pointer'}}>
                 <div className="center">
                     <div className="icon">
                         <img src={single} alt="" />
@@ -39,7 +48,7 @@ const Type = () => {
                     <p>PKR8000</p>
                 </div>
             </div>
-            <div className="r-box">
+            <div className="r-box" onClick={() => handleTicketTypeChange('couple')} style={{cursor:'pointer'}}>
                 <div className="center">
                     <div className="icon">
                         <img src={couple} alt="" />

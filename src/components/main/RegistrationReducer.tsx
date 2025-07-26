@@ -62,7 +62,6 @@ export function registrationReducer(
             }
             return {
                 ...state,
-                step: 1,
                 ticketType: action.ticketType,
                 attendees: newAttendeesInfo,
             }

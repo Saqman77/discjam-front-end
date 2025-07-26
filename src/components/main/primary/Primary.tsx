@@ -3,18 +3,27 @@ import single from '@assets/type/single.svg'
 import './primary.scss'
 import { useRegistrationContext } from '../RegistrationContext'
 import { useMemo } from 'react'
+import { useRef } from 'react'
+import { gsap } from 'gsap'
 
 const Primary = () => {
     const {state, dispatch} = useRegistrationContext();
     const {ticketType} = useMemo(() => {
         return state;
     }, [state]);
-
-    const handleTicketTypeChange = (ticketType: 'couple' | 'single') => {
-        dispatch({type: 'SET_TICKET_TYPE', ticketType: ticketType})
+    const containerRef = useRef<HTMLDivElement>(null);
+    const handleSelect = (idx: number) => {
+        if (!containerRef.current) return;
+        gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.5,
+            onComplete: () => {
+                dispatch({ type: 'SET_STEP_NUMBER', stepNumber: 4 });
+            }
+        });
     }
   return (
-    <div className="p-container">
+    <div className="p-container" ref={containerRef}>
         <div className="t-header">
             <div className="t-heading">
                 <h1>SELECT THE PRIMARY ATTENDEE</h1>
@@ -26,7 +35,7 @@ const Primary = () => {
             </div>
         </div>
         <div className="t-wrapper">
-            <div className="l-box">
+            <div className="l-box" onClick={() => handleSelect(1)} style={{cursor:'pointer'}}>
                 <div className="center">
                     <div className="icon">
                         <img src={single} alt="" />
@@ -39,7 +48,7 @@ const Primary = () => {
                     <p>PKR8000</p>
                 </div> */}
             </div>
-            <div className="r-box">
+            <div className="r-box" onClick={() => handleSelect(1)} style={{cursor:'pointer'}}>
                 <div className="center">
                     <div className="icon">
                         <img src={single} alt="" />
