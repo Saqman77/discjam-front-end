@@ -10,33 +10,120 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RegistrationProofSubmissionIndexRouteImport } from './routes/RegistrationProofSubmission/index'
+import { Route as RefillRegistrationIndexRouteImport } from './routes/RefillRegistration/index'
+import { Route as AdditionalVerificationIndexRouteImport } from './routes/AdditionalVerification/index'
+import { Route as RegistrationProofSubmissionRegistrationIdRouteImport } from './routes/RegistrationProofSubmission/$registrationId'
+import { Route as RefillRegistrationRegistrationIdRouteImport } from './routes/RefillRegistration/$registrationId'
+import { Route as AdditionalVerificationRegistrationIdRouteImport } from './routes/AdditionalVerification/$registrationId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegistrationProofSubmissionIndexRoute =
+  RegistrationProofSubmissionIndexRouteImport.update({
+    id: '/RegistrationProofSubmission/',
+    path: '/RegistrationProofSubmission/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RefillRegistrationIndexRoute = RefillRegistrationIndexRouteImport.update({
+  id: '/RefillRegistration/',
+  path: '/RefillRegistration/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdditionalVerificationIndexRoute =
+  AdditionalVerificationIndexRouteImport.update({
+    id: '/AdditionalVerification/',
+    path: '/AdditionalVerification/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RegistrationProofSubmissionRegistrationIdRoute =
+  RegistrationProofSubmissionRegistrationIdRouteImport.update({
+    id: '/RegistrationProofSubmission/$registrationId',
+    path: '/RegistrationProofSubmission/$registrationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RefillRegistrationRegistrationIdRoute =
+  RefillRegistrationRegistrationIdRouteImport.update({
+    id: '/RefillRegistration/$registrationId',
+    path: '/RefillRegistration/$registrationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdditionalVerificationRegistrationIdRoute =
+  AdditionalVerificationRegistrationIdRouteImport.update({
+    id: '/AdditionalVerification/$registrationId',
+    path: '/AdditionalVerification/$registrationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/AdditionalVerification/$registrationId': typeof AdditionalVerificationRegistrationIdRoute
+  '/RefillRegistration/$registrationId': typeof RefillRegistrationRegistrationIdRoute
+  '/RegistrationProofSubmission/$registrationId': typeof RegistrationProofSubmissionRegistrationIdRoute
+  '/AdditionalVerification': typeof AdditionalVerificationIndexRoute
+  '/RefillRegistration': typeof RefillRegistrationIndexRoute
+  '/RegistrationProofSubmission': typeof RegistrationProofSubmissionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/AdditionalVerification/$registrationId': typeof AdditionalVerificationRegistrationIdRoute
+  '/RefillRegistration/$registrationId': typeof RefillRegistrationRegistrationIdRoute
+  '/RegistrationProofSubmission/$registrationId': typeof RegistrationProofSubmissionRegistrationIdRoute
+  '/AdditionalVerification': typeof AdditionalVerificationIndexRoute
+  '/RefillRegistration': typeof RefillRegistrationIndexRoute
+  '/RegistrationProofSubmission': typeof RegistrationProofSubmissionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/AdditionalVerification/$registrationId': typeof AdditionalVerificationRegistrationIdRoute
+  '/RefillRegistration/$registrationId': typeof RefillRegistrationRegistrationIdRoute
+  '/RegistrationProofSubmission/$registrationId': typeof RegistrationProofSubmissionRegistrationIdRoute
+  '/AdditionalVerification/': typeof AdditionalVerificationIndexRoute
+  '/RefillRegistration/': typeof RefillRegistrationIndexRoute
+  '/RegistrationProofSubmission/': typeof RegistrationProofSubmissionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/AdditionalVerification/$registrationId'
+    | '/RefillRegistration/$registrationId'
+    | '/RegistrationProofSubmission/$registrationId'
+    | '/AdditionalVerification'
+    | '/RefillRegistration'
+    | '/RegistrationProofSubmission'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/AdditionalVerification/$registrationId'
+    | '/RefillRegistration/$registrationId'
+    | '/RegistrationProofSubmission/$registrationId'
+    | '/AdditionalVerification'
+    | '/RefillRegistration'
+    | '/RegistrationProofSubmission'
+  id:
+    | '__root__'
+    | '/'
+    | '/AdditionalVerification/$registrationId'
+    | '/RefillRegistration/$registrationId'
+    | '/RegistrationProofSubmission/$registrationId'
+    | '/AdditionalVerification/'
+    | '/RefillRegistration/'
+    | '/RegistrationProofSubmission/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdditionalVerificationRegistrationIdRoute: typeof AdditionalVerificationRegistrationIdRoute
+  RefillRegistrationRegistrationIdRoute: typeof RefillRegistrationRegistrationIdRoute
+  RegistrationProofSubmissionRegistrationIdRoute: typeof RegistrationProofSubmissionRegistrationIdRoute
+  AdditionalVerificationIndexRoute: typeof AdditionalVerificationIndexRoute
+  RefillRegistrationIndexRoute: typeof RefillRegistrationIndexRoute
+  RegistrationProofSubmissionIndexRoute: typeof RegistrationProofSubmissionIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +135,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/RegistrationProofSubmission/': {
+      id: '/RegistrationProofSubmission/'
+      path: '/RegistrationProofSubmission'
+      fullPath: '/RegistrationProofSubmission'
+      preLoaderRoute: typeof RegistrationProofSubmissionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/RefillRegistration/': {
+      id: '/RefillRegistration/'
+      path: '/RefillRegistration'
+      fullPath: '/RefillRegistration'
+      preLoaderRoute: typeof RefillRegistrationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/AdditionalVerification/': {
+      id: '/AdditionalVerification/'
+      path: '/AdditionalVerification'
+      fullPath: '/AdditionalVerification'
+      preLoaderRoute: typeof AdditionalVerificationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/RegistrationProofSubmission/$registrationId': {
+      id: '/RegistrationProofSubmission/$registrationId'
+      path: '/RegistrationProofSubmission/$registrationId'
+      fullPath: '/RegistrationProofSubmission/$registrationId'
+      preLoaderRoute: typeof RegistrationProofSubmissionRegistrationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/RefillRegistration/$registrationId': {
+      id: '/RefillRegistration/$registrationId'
+      path: '/RefillRegistration/$registrationId'
+      fullPath: '/RefillRegistration/$registrationId'
+      preLoaderRoute: typeof RefillRegistrationRegistrationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/AdditionalVerification/$registrationId': {
+      id: '/AdditionalVerification/$registrationId'
+      path: '/AdditionalVerification/$registrationId'
+      fullPath: '/AdditionalVerification/$registrationId'
+      preLoaderRoute: typeof AdditionalVerificationRegistrationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdditionalVerificationRegistrationIdRoute:
+    AdditionalVerificationRegistrationIdRoute,
+  RefillRegistrationRegistrationIdRoute: RefillRegistrationRegistrationIdRoute,
+  RegistrationProofSubmissionRegistrationIdRoute:
+    RegistrationProofSubmissionRegistrationIdRoute,
+  AdditionalVerificationIndexRoute: AdditionalVerificationIndexRoute,
+  RefillRegistrationIndexRoute: RefillRegistrationIndexRoute,
+  RegistrationProofSubmissionIndexRoute: RegistrationProofSubmissionIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
