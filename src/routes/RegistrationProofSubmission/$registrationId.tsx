@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import ProofSubmission from '@pages/ProofSubmission/ProofSubmission';
-import { RegistrationDetail } from '../../types/api';
+import type { RegistrationDetail } from '../../types/api';
 
 export const Route = createFileRoute('/RegistrationProofSubmission/$registrationId')({
   component: ProofSubmission,

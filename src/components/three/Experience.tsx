@@ -11,7 +11,7 @@ export default function Experience() {
   // Vertical (longitude) lines
   const verticalLines = useMemo(() => {
     const count = 16
-    const lines = []
+    const lines: Vector3[][] = []
 
     for (let i = 0; i < count; i++) {
       const theta = (i / count) * Math.PI * 2
@@ -34,7 +34,7 @@ export default function Experience() {
   // Horizontal (latitude) lines
   const horizontalLines = useMemo(() => {
     const levels = 8
-    const lines = []
+    const lines: Vector3[][] = []
 
     for (let i = 1; i <= levels; i++) {
       const phi = (i / (levels + 1)) * Math.PI

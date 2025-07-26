@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { registrationReducer } from './RegistrationReducer';
 import type { TicketType, Referral, Gender, RegistrationAttendee } from '../../types/api';
 
