@@ -126,13 +126,16 @@ const Home = () => {
   return (
     <RegistrationProvider>
       <div className="main-container">
-        <BackArrow />
+        {/* Only show BackArrow during registration flow, not on PreScreen */}
+        {hidden && <BackArrow />}
+        {/* PreScreen logic: show until hidden is true */}
         {!hidden && (
           <div className="cta-container" ref={ctaRef}>
             <MainCta onClick={clicker} />
           </div>
         )}
         {!hidden && <PreScreen clicked={clicked} />}
+        {/* Registration flow only after PreScreen is hidden */}
         {hidden && <RegistrationScreens />}
       </div>
     </RegistrationProvider>

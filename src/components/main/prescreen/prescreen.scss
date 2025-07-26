@@ -1,13 +1,13 @@
 @use "@styles/utils/variables.scss" as *;
 
-.p-container {
+.pre-container {
     width: 100%;
     height: 100%;
     // background-color: #1A1A1A;
     display: grid;
     grid-template-columns: auto;
 
-    .p-wrapper {
+    .pre-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
@@ -85,14 +85,14 @@
 }
 
 @media screen and (max-width:1250px) {
-    .p-container {
+    .pre-container {
     width: 100%;
     height: 100%;
     // background-color: #1A1A1A;
     display: grid;
     grid-template-columns: auto;
 
-    .p-wrapper {
+    .pre-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
@@ -170,14 +170,14 @@
 }
 }
 @media screen and (max-width:768px) {
-    .p-container {
+    .pre-container {
     width: 100%;
     height: 100%;
     // background-color: #1A1A1A;
     display: grid;
     grid-template-columns: auto;
 
-    .p-wrapper {
+    .pre-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;

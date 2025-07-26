@@ -25,8 +25,8 @@ const PreScreen = ({ clicked }: { clicked: boolean }) => {
     }, [clicked]);
 
     return (
-        <div className="p-container" ref={preRef}>
-            <div className="p-wrapper">
+        <div className="pre-container" ref={preRef}>
+            <div className="pre-wrapper">
                 <div className="left" ref={lRef}>
                     <div className="top">
                         <h1> SIGN U</h1>
