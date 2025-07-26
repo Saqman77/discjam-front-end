@@ -41,7 +41,7 @@ const Type = () => {
                         <img src={single} alt="" />
                     </div>
                     <div className="text">
-                        <p>single</p>
+                        <p>Single Pass</p>
                     </div>
                 </div>
                 <div className="bottom">
@@ -54,7 +54,7 @@ const Type = () => {
                         <img src={couple} alt="" />
                     </div>
                     <div className="text">
-                        <p>couple</p>
+                        <p>Couple Pass</p>
                     </div>
                 </div>
                 <div className="bottom">

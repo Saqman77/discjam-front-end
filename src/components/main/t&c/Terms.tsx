@@ -58,7 +58,7 @@ const Terms = ({ onSubmit }: TermsProps) => {
                       </label>
                     </div>
                     <button type="submit" className="submit-button" disabled={state.isSubmitting || !isChecked}>
-                        {state.isSubmitting ? 'Submitting Registration...' : 'Submit Registration'}
+                        {state.isSubmitting ? '...' : 'Submit'}
                     </button>
                 </form>
             </div>

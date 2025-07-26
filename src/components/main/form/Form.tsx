@@ -91,23 +91,26 @@ const Form = () => {
                 <div className="l-content">
                     <div className="heading">
                         <h2>
-                            PLEASE ENTER THE DETAILS
+                        Please Enter your Details
                         </h2>
                     </div>
                     <div className="desc">
                         <p>
-                            <span>06th Jan 2024</span>
-                            <span>Location: To the ticket holders only</span>
-                            <span className='space'></span>
+                            <span>Required:</span>
 
-                            <span>Before filling this form please note:</span>
+                            <span>{'– First & Last Name (as per ID)'}</span>
+                           
+                            <span>– Valid Email</span>
+                            <span>– CNIC / Passport / ID Number</span>
+                            <span>– WhatsApp Number</span>
+                            <span>– Gender</span>
+                            <span>– Upload a clear image of your ID</span>
                             <span className='space'></span>
-                            <span>Filling out this registration form does not guarantee you a ticket/entry.</span>
-                            <span>You must be over 18 with a valid CNIC / Passport / ID</span>
-                            <span>CNIC / Passport / ID numbers are mandatory for every attendee.</span>
-                            <span>If you are registering for a couple's ticket, you must enter together.</span>
-                            <span>Forms with incomplete information will not be entertained.</span>
-                            <span>Once you've filled out & submitted the form with your correct email & contact information, please wait and you'll hear back from us via email.</span>
+                            <span>Optional but Recommended:</span>
+                            <span>– Reference: Know someone from the Disc Jam crew, or an artist? Drop their name, it boosts your approval chances.</span>
+                            <span>– Instagram URL: Not mandatory but sharing your profile also helps with verification and increases your chances of getting approved.</span>
+                            <span className='space'></span>
+                            <span>Once submitted, we’ll reach out via email or WhatsApp after verification.</span>
                         </p>
                     </div>
                 </div>
@@ -116,14 +119,14 @@ const Form = () => {
                         <div className="form-wrapper">
                             <div className="form">
                                 <div className="form-header">
-                                    <h3>DISC JAM 2025</h3>
-                                    <p>Fill down this form and press submit! we will get back to you right after you're verified!</p>
+                                    <h3>TURB0 - 2025</h3>
+                                    <p>Fill in all required fields correctly, incomplete or inaccurate forms may be rejected.</p>
                                 </div>
                                 <div className="field-wrapper">
                                     <div className="input-wrapper">
                                         <input 
                                             type="text" 
-                                            placeholder='First name (important*)' 
+                                            placeholder='First Name(As Per ID)*' 
                                             value={attendee.first_name}
                                             onChange={(e) => handleAttendeeChange(0, 'first_name', e.target.value)}
                                             required
@@ -134,7 +137,7 @@ const Form = () => {
                                     <div className="input-wrapper">
                                         <input 
                                             type="text" 
-                                            placeholder='Last name (important*)' 
+                                            placeholder='Last Name(As Per ID)*' 
                                             value={attendee.last_name}
                                             onChange={(e) => handleAttendeeChange(0, 'last_name', e.target.value)}
                                             required
@@ -145,7 +148,7 @@ const Form = () => {
                                     <div className="input-wrapper">
                                         <input 
                                             type="email" 
-                                            placeholder='valid email (important*)' 
+                                            placeholder='Valid Email' 
                                             value={attendee.email}
                                             onChange={(e) => handleAttendeeChange(0, 'email', e.target.value)}
                                             required
@@ -156,7 +159,7 @@ const Form = () => {
                                     <div className="input-wrapper">
                                         <input 
                                             type="text" 
-                                            placeholder='CNIC-number (important*)' 
+                                            placeholder='CNIC / Passport / ID Number' 
                                             value={attendee.cnic_number}
                                             onChange={(e) => handleCNICChange(0, e.target.value)}
                                             maxLength={15}
@@ -168,7 +171,7 @@ const Form = () => {
                                     <div className="input-wrapper">
                                         <input 
                                             type="text" 
-                                            placeholder='whatsapp phone (important*)' 
+                                            placeholder='WhatsApp Number*' 
                                             value={attendee.whatsapp_number}
                                             onChange={(e) => handleAttendeeChange(0, 'whatsapp_number', e.target.value)}
                                             required
@@ -179,7 +182,7 @@ const Form = () => {
                                     <div className="input-wrapper">
                                         <input 
                                             type="text" 
-                                            placeholder='instagram url (important*)' 
+                                            placeholder='Instagram URL(Optional)' 
                                             value={attendee.instagram_url || ''}
                                             onChange={(e) => handleAttendeeChange(0, 'instagram_url', e.target.value)}
                                         />
@@ -253,7 +256,7 @@ const Form = () => {
                         </div>
                         <div className="submit">
                             <button type="submit" className='submit-button' disabled={state.isSubmitting}>
-                                Continue to Terms
+                                Continue
                             </button>
                         </div>
                     </form>
