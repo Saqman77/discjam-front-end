@@ -1,8 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
-import { Card, CardContent } from '@uikit/card';
-import { Button } from '@uikit/button';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@uikit/select';
+import './additional-verification-form.scss';
 
 export const Route = createFileRoute('/AdditionalVerification/$registrationId')({
   component: AdditionalVerificationReferralForm,
@@ -64,33 +62,33 @@ function AdditionalVerificationReferralForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-purple-100">
-      <Card className="w-full max-w-md">
-        <CardContent>
-          <h2 className="text-xl font-bold mb-4 text-center">Provide Referral</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block mb-1 font-medium">Referral <span className="text-red-600">*</span></label>
-              <Select value={selectedReferral} onValueChange={setSelectedReferral} required>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select Referral" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">Select Referral</SelectItem>
-                  {referrals.filter((r: any) => r.id).map((r: any) => (
-                    <SelectItem key={r.id} value={String(r.id)}>{r.first_name} {r.last_name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+    <div className="additional-verification-form-container">
+      <div className="additional-verification-form-card">
+        <div className="additional-verification-form-content">
+          <h2 className="additional-verification-form-title">Provide Referral</h2>
+          <form onSubmit={handleSubmit} className="additional-verification-form">
+            <div className="form-field">
+              <label className="form-label">Referral <span className="required">*</span></label>
+              <select 
+                className="form-select"
+                value={selectedReferral} 
+                onChange={e => setSelectedReferral(e.target.value)} 
+                required
+              >
+                <option value="none">Select Referral</option>
+                {referrals.filter((r: any) => r.id).map((r: any) => (
+                  <option key={r.id} value={String(r.id)}>{r.first_name} {r.last_name}</option>
+                ))}
+              </select>
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Submitting...' : 'Submit Referral'}
-            </Button>
-            {error && <div className="text-red-600 text-center">{error}</div>}
-            {success && <div className="text-green-600 text-center">{success}</div>}
+            </button>
+            {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">{success}</div>}
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 } 

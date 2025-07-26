@@ -1,17 +1,17 @@
 import React from 'react';
-import { CardHeader, CardTitle, CardDescription } from '@uikit/card';
+import './proof-submission-header.scss';
 
 interface ProofSubmissionHeaderProps {
   registrationId: string | number;
 }
 
 const ProofSubmissionHeader: React.FC<ProofSubmissionHeaderProps> = ({ registrationId }) => (
-  <CardHeader>
-    <CardTitle>Submit Payment Proof</CardTitle>
-    <CardDescription>
-      Registration ID: <span className="font-mono">{registrationId}</span>
-    </CardDescription>
-  </CardHeader>
+  <div className="proof-submission-header">
+    <h2 className="proof-submission-header-title">Submit Payment Proof</h2>
+    <p className="proof-submission-header-description">
+      Registration ID: <span className="registration-id">{registrationId}</span>
+    </p>
+  </div>
 );
 
 export default ProofSubmissionHeader; 

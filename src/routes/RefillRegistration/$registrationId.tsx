@@ -1,12 +1,11 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
-import { Card, CardContent } from '@uikit/card';
-import { Button } from '@uikit/button';
-import { Input } from '@uikit/input';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@uikit/select';
-import { Users, ArrowLeft, ArrowRight, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import name from '@assets/form/name.svg';
+import mail from '@assets/form/mail.svg';
+import nic from '@assets/form/nic.svg';
+import phone from '@assets/form/phone.svg';
+import insta from '@assets/form/instagram.svg';
+import './refill-registration-form.scss';
 
 // Same constants as original registration form
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;
@@ -222,210 +221,203 @@ function RefillRegistrationForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-purple-100">
-      <Card className="w-full max-w-4xl">
-        <CardContent className="p-6">
-          <h1 className="text-2xl font-bold text-center mb-6">Correct Your Registration</h1>
-          <p className="text-center mb-6 text-gray-600">
+    <div className="refill-registration-form-container">
+      <div className="refill-registration-form-card">
+        <div className="refill-registration-form-content">
+          <h1 className="refill-registration-form-title">Correct Your Registration</h1>
+          <p className="refill-registration-form-description">
             Please review and correct the information below. All fields marked with * are required.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <Users className="w-6 h-6" /> Attendee Details
+          <form onSubmit={handleSubmit} className="refill-registration-form">
+            <h2 className="attendee-details-title">
+              <img src={name} alt="Users" className="attendee-icon" /> Attendee Details
             </h2>
 
             {attendees.map((att, idx) => (
-              <div key={idx} className="border p-4 rounded mb-4">
+              <div key={idx} className="attendee-section">
                 {attendees.length === 2 && (
-                  <div className="mb-3 text-base font-semibold text-blue-700">Attendee {idx + 1}</div>
+                  <div className="attendee-label">Attendee {idx + 1}</div>
                 )}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="col-span-1 flex flex-col">
-                    <label className="text-sm font-medium mb-1">First Name *</label>
-                    <Input 
-                      placeholder="First Name" 
-                      value={att.first_name || ''} 
-                      onChange={e => handleAttendeeChange(idx, 'first_name', e.target.value)} 
-                      required 
-                    />
-                    {errors[`first_name_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`first_name_${idx}`]}</span>}
-                  </div>
-                  <div className="col-span-1 flex flex-col">
-                    <label className="text-sm font-medium mb-1">Last Name *</label>
-                    <Input 
-                      placeholder="Last Name" 
-                      value={att.last_name || ''} 
-                      onChange={e => handleAttendeeChange(idx, 'last_name', e.target.value)} 
-                      required 
-                    />
-                    {errors[`last_name_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`last_name_${idx}`]}</span>}
-                  </div>
-                  <div className="col-span-1 flex flex-col">
-                    <label className="text-sm font-medium mb-1">CNIC Number *</label>
-                    <Input
-                      placeholder="CNIC Number"
-                      value={att.cnic_number || ''}
-                      onChange={e => handleCNICChange(idx, e.target.value)}
-                      onPaste={e => handleCNICPaste(idx, e)}
-                      required
-                      maxLength={15}
-                    />
-                    {errors[`cnic_number_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`cnic_number_${idx}`]}</span>}
-                  </div>
-                  <div className="col-span-1 flex flex-col">
-                    <label className="text-sm font-medium mb-1">Gender *</label>
-                    <Select 
-                      value={att.gender ? String(att.gender) : 'none'} 
-                      onValueChange={v => handleAttendeeChange(idx, 'gender', v !== 'none' ? Number(v) : 0)}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Gender" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="none">Select Gender</SelectItem>
-                        {genders.map(g => <SelectItem key={g.id} value={String(g.id)}>{g.name}</SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                    {errors[`gender_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`gender_${idx}`]}</span>}
-                  </div>
-                  <div className="col-span-2 flex flex-col">
-                    <label className="text-sm font-medium mb-1">Instagram URL</label>
-                    <Input 
-                      placeholder="Instagram URL" 
-                      value={att.instagram_url || ''} 
-                      onChange={e => handleAttendeeChange(idx, 'instagram_url', e.target.value)} 
-                    />
-                  </div>
-                  <div className="col-span-1 flex flex-col">
-                    <label className="text-sm font-medium mb-1">Email *</label>
-                    <Input
-                      placeholder="Email"
-                      value={att.email || ''}
-                      onChange={e => handleAttendeeChange(idx, 'email', e.target.value)}
-                      required
-                      type="email"
-                    />
-                    {errors[`email_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`email_${idx}`]}</span>}
-                  </div>
-                  <div className="col-span-1 flex flex-col">
-                    <label className="text-sm font-medium mb-1">WhatsApp Number *</label>
-                    <div className="w-full rounded border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition">
-                      <PhoneInput
-                        country={'pk'}
-                        value={att.whatsapp_number || ''}
-                        onChange={(value, data) => {
-                          const code = data && typeof data === 'object' && 'dialCode' in data ? `+${data.dialCode}` : '';
-                          if (code && value.length < code.length) {
-                            handleAttendeeChange(idx, 'whatsapp_number', code);
-                          } else {
-                            handleAttendeeChange(idx, 'whatsapp_number', value);
-                          }
-                        }}
-                        enableSearch={false}
-                        disableSearchIcon={true}
-                        onlyCountries={['pk', 'us', 'gb']}
-                        placeholder="3001234567"
-                        inputProps={{
-                          name: 'whatsapp',
-                          required: true,
-                          autoFocus: false,
-                          maxLength: 16
-                        }}
-                        containerStyle={{ width: '100%', maxWidth: '100%' }}
-                        inputStyle={{ width: '100%' }}
-                        dropdownStyle={{ maxWidth: '100vw', left: 0, width: 'max-content' }}
-                        specialLabel=""
+                <div className="attendee-fields">
+                  <div className="form-field">
+                    <label className="form-label">First Name *</label>
+                    <div className="input-wrapper">
+                      <input 
+                        type="text"
+                        className="form-input"
+                        placeholder="First Name" 
+                        value={att.first_name || ''} 
+                        onChange={e => handleAttendeeChange(idx, 'first_name', e.target.value)} 
+                        required 
                       />
+                      <img src={name} alt="" className="input-icon" />
                     </div>
-                    {errors[`whatsapp_number_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`whatsapp_number_${idx}`]}</span>}
+                    {errors[`first_name_${idx}`] && <span className="error-text">{errors[`first_name_${idx}`]}</span>}
                   </div>
-                  <div className="col-span-2 flex flex-col">
-                    <label className="text-sm font-medium mb-1">CNIC Front (Image) *</label>
+                  <div className="form-field">
+                    <label className="form-label">Last Name *</label>
+                    <div className="input-wrapper">
+                      <input 
+                        type="text"
+                        className="form-input"
+                        placeholder="Last Name" 
+                        value={att.last_name || ''} 
+                        onChange={e => handleAttendeeChange(idx, 'last_name', e.target.value)} 
+                        required 
+                      />
+                      <img src={name} alt="" className="input-icon" />
+                    </div>
+                    {errors[`last_name_${idx}`] && <span className="error-text">{errors[`last_name_${idx}`]}</span>}
+                  </div>
+                  <div className="form-field">
+                    <label className="form-label">CNIC Number *</label>
+                    <div className="input-wrapper">
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="CNIC Number"
+                        value={att.cnic_number || ''}
+                        onChange={e => handleCNICChange(idx, e.target.value)}
+                        onPaste={e => handleCNICPaste(idx, e)}
+                        required
+                        maxLength={15}
+                      />
+                      <img src={nic} alt="" className="input-icon" />
+                    </div>
+                    {errors[`cnic_number_${idx}`] && <span className="error-text">{errors[`cnic_number_${idx}`]}</span>}
+                  </div>
+                  <div className="form-field">
+                    <label className="form-label">Gender *</label>
+                    <select 
+                      className="form-select"
+                      value={att.gender ? String(att.gender) : 'none'} 
+                      onChange={e => handleAttendeeChange(idx, 'gender', e.target.value !== 'none' ? Number(e.target.value) : 0)}
+                    >
+                      <option value="none">Select Gender</option>
+                      {genders.map(g => <option key={g.id} value={String(g.id)}>{g.name}</option>)}
+                    </select>
+                    {errors[`gender_${idx}`] && <span className="error-text">{errors[`gender_${idx}`]}</span>}
+                  </div>
+                  <div className="form-field">
+                    <label className="form-label">Instagram URL</label>
+                    <div className="input-wrapper">
+                      <input 
+                        type="text"
+                        className="form-input"
+                        placeholder="Instagram URL" 
+                        value={att.instagram_url || ''} 
+                        onChange={e => handleAttendeeChange(idx, 'instagram_url', e.target.value)} 
+                      />
+                      <img src={insta} alt="" className="input-icon" />
+                    </div>
+                  </div>
+                  <div className="form-field">
+                    <label className="form-label">Email *</label>
+                    <div className="input-wrapper">
+                      <input
+                        type="email"
+                        className="form-input"
+                        placeholder="Email"
+                        value={att.email || ''}
+                        onChange={e => handleAttendeeChange(idx, 'email', e.target.value)}
+                        required
+                      />
+                      <img src={mail} alt="" className="input-icon" />
+                    </div>
+                    {errors[`email_${idx}`] && <span className="error-text">{errors[`email_${idx}`]}</span>}
+                  </div>
+                  <div className="form-field">
+                    <label className="form-label">WhatsApp Number *</label>
+                    <div className="input-wrapper">
+                      <input
+                        type="tel"
+                        className="form-input"
+                        placeholder="+923001234567"
+                        value={att.whatsapp_number || ''}
+                        onChange={e => handleAttendeeChange(idx, 'whatsapp_number', e.target.value)}
+                        required
+                      />
+                      <img src={phone} alt="" className="input-icon" />
+                    </div>
+                    {errors[`whatsapp_number_${idx}`] && <span className="error-text">{errors[`whatsapp_number_${idx}`]}</span>}
+                  </div>
+                  <div className="form-field">
+                    <label className="form-label">CNIC Front (Image) *</label>
                     <input
                       type="file"
                       accept="image/*"
                       onChange={e => handleAttendeeChange(idx, 'cnic_front', e.target.files?.[0] || '')}
                       required
-                      className="col-span-2"
+                      className="file-input"
                     />
-                    {errors[`cnic_front_${idx}`] && <span className="text-xs text-red-600 mt-1">{errors[`cnic_front_${idx}`]}</span>}
+                    {errors[`cnic_front_${idx}`] && <span className="error-text">{errors[`cnic_front_${idx}`]}</span>}
                   </div>
                 </div>
               </div>
             ))}
 
             {attendees.length === 2 && (
-              <div className="flex items-center gap-4 mb-4">
-                <span className="font-medium">Primary Attendee:</span>
-                <Button
-                  type="button"
-                  variant={primaryAttendee === 0 ? 'default' : 'outline'}
-                  onClick={() => setPrimaryAttendee(0)}
-                  className="flex-1"
-                >
-                  {attendees[0]?.first_name || 'Attendee 1'}
-                </Button>
-                <Button
-                  type="button"
-                  variant={primaryAttendee === 1 ? 'default' : 'outline'}
-                  onClick={() => setPrimaryAttendee(1)}
-                  className="flex-1"
-                >
-                  {attendees[1]?.first_name || 'Attendee 2'}
-                </Button>
+              <div className="primary-attendee-section">
+                <span className="primary-attendee-label">Primary Attendee:</span>
+                <div className="primary-attendee-buttons">
+                  <button
+                    type="button"
+                    className={`primary-attendee-button ${primaryAttendee === 0 ? 'active' : ''}`}
+                    onClick={() => setPrimaryAttendee(0)}
+                  >
+                    {attendees[0]?.first_name || 'Attendee 1'}
+                  </button>
+                  <button
+                    type="button"
+                    className={`primary-attendee-button ${primaryAttendee === 1 ? 'active' : ''}`}
+                    onClick={() => setPrimaryAttendee(1)}
+                  >
+                    {attendees[1]?.first_name || 'Attendee 2'}
+                  </button>
+                </div>
               </div>
             )}
 
-            <div className="mb-4">
-              <label className="block mb-2 font-medium">Who referred you?</label>
-              <Select
+            <div className="form-field">
+              <label className="form-label">Who referred you?</label>
+              <select
+                className="form-select"
                 value={selectedReferral !== null ? String(selectedReferral) : 'none'}
-                onValueChange={v => setSelectedReferral(v !== 'none' ? Number(v) : null)}
+                onChange={e => setSelectedReferral(e.target.value !== 'none' ? Number(e.target.value) : null)}
               >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="No Referral" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">No Referral</SelectItem>
-                  {referrals.map(r => <SelectItem key={r.id} value={String(r.id)}>{r.first_name} {r.last_name}</SelectItem>)}
-                </SelectContent>
-              </Select>
+                <option value="none">No Referral</option>
+                {referrals.map(r => <option key={r.id} value={String(r.id)}>{r.first_name} {r.last_name}</option>)}
+              </select>
             </div>
 
-            <div className="flex gap-3 justify-between">
-              <Button 
+            <div className="form-actions">
+              <button 
                 type="button" 
-                variant="outline" 
+                className="back-button"
                 onClick={() => window.history.back()} 
                 disabled={isSubmitting}
               >
-                <ArrowLeft className="w-4 h-4 mr-1" />Back
-              </Button>
-              <Button type="submit" className="flex-1" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Updating...</>
-                ) : (
-                  <><ArrowRight className="w-4 h-4 mr-1" />Update Registration</>
-                )}
-              </Button>
+                Back
+              </button>
+              <button type="submit" className="submit-button" disabled={isSubmitting}>
+                {isSubmitting ? 'Updating...' : 'Update Registration'}
+              </button>
             </div>
           </form>
 
           {error && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
-              <AlertCircle className="h-5 w-5 text-red-600" />
-              <p className="text-red-800 font-medium">{error}</p>
+            <div className="error-alert">
+              <p className="error-text">{error}</p>
             </div>
           )}
           {success && (
-            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              <p className="text-green-800 font-medium">{success}</p>
+            <div className="success-alert">
+              <p className="success-text">{success}</p>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 } 

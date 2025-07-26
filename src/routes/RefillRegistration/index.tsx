@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-import { Card, CardContent } from '@uikit/card';
-import { Button } from '@uikit/button';
-import { Input } from '@uikit/input';
+import './refill-registration.scss';
 
 function RefillRegistrationEntry() {
   const [registrationId, setRegistrationId] = useState('');
@@ -36,26 +34,39 @@ function RefillRegistrationEntry() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-purple-100">
-      <Card className="w-full max-w-md">
-        <CardContent>
-          <h2 className="text-xl font-bold mb-4 text-center">Correct Registration Form</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block mb-1 font-medium">Registration ID</label>
-              <Input value={registrationId} onChange={e => setRegistrationId(e.target.value)} required />
+    <div className="refill-registration-container">
+      <div className="refill-registration-card">
+        <div className="refill-registration-content">
+          <h2 className="refill-registration-title">Correct Registration Form</h2>
+          <form onSubmit={handleSubmit} className="refill-registration-form">
+            <div className="form-field">
+              <label className="form-label">Registration ID</label>
+              <input 
+                type="text"
+                className="form-input"
+                value={registrationId} 
+                onChange={e => setRegistrationId(e.target.value)} 
+                required 
+              />
             </div>
-            <div>
-              <label className="block mb-1 font-medium">Primary Attendee CNIC Number</label>
-              <Input value={cnic} onChange={e => setCnic(e.target.value)} required placeholder="xxxxx-xxxxxxx-x" />
+            <div className="form-field">
+              <label className="form-label">Primary Attendee CNIC Number</label>
+              <input 
+                type="text"
+                className="form-input"
+                value={cnic} 
+                onChange={e => setCnic(e.target.value)} 
+                required 
+                placeholder="xxxxx-xxxxxxx-x" 
+              />
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Verifying...' : 'Verify & Continue'}
-            </Button>
-            {error && <div className="text-red-600 text-center">{error}</div>}
+            </button>
+            {error && <div className="error-message">{error}</div>}
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

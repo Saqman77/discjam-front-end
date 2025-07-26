@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
-import { Card, CardContent } from '@uikit/card';
 import { Route } from '@routes/RegistrationProofSubmission/$registrationId';
 import ProofSubmissionHeader from './ProofSubmissionHeader';
 import ProofSubmissionDetails from './ProofSubmissionDetails';
 import ProofSubmissionForm from './ProofSubmissionForm';
+import './proof-submission.scss';
 
 const ProofSubmission = () => {
   const { registrationId, registration } = Route.useLoaderData();
@@ -55,14 +55,14 @@ const ProofSubmission = () => {
     }
   };
 
-  if (error) return <div className="flex justify-center items-center min-h-screen text-red-600">{error}</div>;
+  if (error) return <div className="error-container">{error}</div>;
   if (!registration) return null;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-purple-100">
-      <Card className="w-full max-w-xl">
+    <div className="proof-submission-page-container">
+      <div className="proof-submission-page-card">
         <ProofSubmissionHeader registrationId={registration.id} />
-        <CardContent>
+        <div className="proof-submission-page-content">
           <ProofSubmissionDetails registration={registration} />
           <ProofSubmissionForm
             inputRef={inputRef}
@@ -72,8 +72,8 @@ const ProofSubmission = () => {
             success={success}
             error={error}
           />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

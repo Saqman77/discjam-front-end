@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { Card, CardContent } from '@uikit/card';
-import { Button } from '@uikit/button';
-import { Input } from '@uikit/input';
+import './registration-proof-submission.scss';
 
 function ProofSubmissionEntry() {
   const [registrationId, setRegistrationId] = useState('');
@@ -38,26 +36,39 @@ function ProofSubmissionEntry() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-purple-100">
-      <Card className="w-full max-w-md">
-        <CardContent>
-          <h2 className="text-xl font-bold mb-4 text-center">Submit Payment Proof</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block mb-1 font-medium">Registration ID</label>
-              <Input value={registrationId} onChange={e => setRegistrationId(e.target.value)} required />
+    <div className="proof-submission-container">
+      <div className="proof-submission-card">
+        <div className="proof-submission-content">
+          <h2 className="proof-submission-title">Submit Payment Proof</h2>
+          <form onSubmit={handleSubmit} className="proof-submission-form">
+            <div className="form-field">
+              <label className="form-label">Registration ID</label>
+              <input 
+                type="text"
+                className="form-input"
+                value={registrationId} 
+                onChange={e => setRegistrationId(e.target.value)} 
+                required 
+              />
             </div>
-            <div>
-              <label className="block mb-1 font-medium">Primary Attendee CNIC Number</label>
-              <Input value={cnic} onChange={e => setCnic(e.target.value)} required placeholder="xxxxx-xxxxxxx-x" />
+            <div className="form-field">
+              <label className="form-label">Primary Attendee CNIC Number</label>
+              <input 
+                type="text"
+                className="form-input"
+                value={cnic} 
+                onChange={e => setCnic(e.target.value)} 
+                required 
+                placeholder="xxxxx-xxxxxxx-x" 
+              />
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Verifying...' : 'Verify & Continue'}
-            </Button>
-            {error && <div className="text-red-600 text-center">{error}</div>}
+            </button>
+            {error && <div className="error-message">{error}</div>}
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import { Button } from '@uikit/button';
+import './proof-submission-form.scss';
 
 interface ProofSubmissionFormProps {
   inputRef: RefObject<HTMLInputElement | null>;
@@ -18,13 +18,13 @@ const ProofSubmissionForm: React.FC<ProofSubmissionFormProps> = ({
   success,
   error,
 }) => (
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <input type="file" accept="image/*" onChange={handleFileChange} ref={inputRef} />
-    <Button type="submit" disabled={isSubmitting} className="w-full">
+  <form onSubmit={handleSubmit} className="proof-submission-form">
+    <input type="file" accept="image/*" onChange={handleFileChange} ref={inputRef} className="file-input" />
+    <button type="submit" disabled={isSubmitting} className="submit-button">
       {isSubmitting ? 'Submitting...' : 'Submit Payment Proof'}
-    </Button>
-    {success && <div className="text-green-600 text-center">{success}</div>}
-    {error && <div className="text-red-600 text-center">{error}</div>}
+    </button>
+    {success && <div className="success-message">{success}</div>}
+    {error && <div className="error-message">{error}</div>}
   </form>
 );
 
