@@ -57,32 +57,6 @@ const Terms = ({ onSubmit }: TermsProps) => {
                         <span className="agree-text">I agree</span>
                       </label>
                     </div>
-                    {state.error && (
-                        <div className="error-message">
-                            {state.error}
-                            <button 
-                                onClick={() => window.location.reload()}
-                                style={{
-                                    marginTop: '10px',
-                                    padding: '8px 16px',
-                                    backgroundColor: '#4EFC00',
-                                    color: '#0E0E0E',
-                                    border: 'none',
-                                    borderRadius: '4px',
-                                    cursor: 'pointer',
-                                    fontSize: '14px',
-                                    fontWeight: 'bold'
-                                }}
-                            >
-                                Try Again
-                            </button>
-                        </div>
-                    )}
-                    {state.success && (
-                        <div className="success-message">
-                            {state.success}
-                        </div>
-                    )}
                     <button type="submit" className="submit-button" disabled={state.isSubmitting || !isChecked}>
                         {state.isSubmitting ? 'Submitting Registration...' : 'Submit Registration'}
                     </button>

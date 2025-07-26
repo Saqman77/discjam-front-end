@@ -10,14 +10,12 @@ import Couple from "./couple/Couple";
 import Primary from "./primary/Primary";
 import Terms from "./t&c/Terms";
 import Success from "./success/Success";
-import Failure from "./Failure/Failure";
 
 const SESSION_KEY = 'prescreenHidden';
 
 const RegistrationScreens = () => {
   const { state, handleSubmit, dispatch } = useRegistrationContext();
   const screenRef = useRef<HTMLDivElement>(null);
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   // Animate in on mount
   useGSAP(() => {
@@ -33,27 +31,20 @@ const RegistrationScreens = () => {
     try {
       await handleSubmit(e);
       
-      // Debug: Log the state after submission
-      console.log('After handleSubmit:');
-      console.log('state.error:', state.error);
-      console.log('state.errors:', state.errors);
-      console.log('state.success:', state.success);
-      
       // Check if submission was successful by checking for errors
       if (!state.error && Object.keys(state.errors).length === 0) {
-        console.log('Submission successful - navigating to success');
-        setIsSuccess(true);
-        // Only navigate to success step on actual success
+        // Navigate to success step
         const nextStep = state.ticketType === 'single' ? 4 : 5;
         dispatch({ type: 'SET_STEP_NUMBER', stepNumber: nextStep });
       } else {
-        console.log('Submission failed - staying on Terms to show errors');
-        setIsSuccess(false);
+        // Navigate to failure step
+        const failureStep = state.ticketType === 'single' ? 4 : 5;
+        dispatch({ type: 'SET_STEP_NUMBER', stepNumber: failureStep });
       }
     } catch (error) {
-      console.log('Exception caught - staying on Terms to show errors');
-      // Don't navigate - stay on Terms to show errors
-      setIsSuccess(false);
+      // Navigate to failure step
+      const failureStep = state.ticketType === 'single' ? 4 : 5;
+      dispatch({ type: 'SET_STEP_NUMBER', stepNumber: failureStep });
     }
   };
 
@@ -77,10 +68,10 @@ const RegistrationScreens = () => {
       ScreenComponent = state.ticketType === 'single' ? <Terms onSubmit={handleFormSubmission} /> : <Primary />;
       break;
     case 4:
-      ScreenComponent = state.ticketType === 'single' ? <Success isSuccess={isSuccess === true} onRetry={handleRetry} /> : <Failure isSuccess={isSuccess === false} />;
+      ScreenComponent = state.ticketType === 'single' ? <Success /> : <Primary />;
       break;
     case 5:
-      ScreenComponent = <Success isSuccess={isSuccess === true} onRetry={handleRetry} />;
+      ScreenComponent = <Success />;
       break;
     default:
       ScreenComponent = <Type />;

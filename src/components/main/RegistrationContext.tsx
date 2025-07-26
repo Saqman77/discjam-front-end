@@ -141,6 +141,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
         if (!cleanNumber.startsWith('+')) {
           cleanNumber = '+' + cleanNumber;
         }
+        console.log('Validating WhatsApp:', cleanNumber);
         if (!WHATSAPP_REGEX.test(cleanNumber)) {
           newErrors[`whatsapp_number_${idx}`] = 'Invalid WhatsApp number.';
         }
@@ -159,9 +160,22 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
     dispatch({ type: 'SET_SUCCESS', success: null });
     
     try {
-      // Validate attendees but don't prevent submission - let backend handle validation
-      const validationPassed = validateAttendees();
-      console.log('Frontend validation passed:', validationPassed);
+      // Validate attendees first
+      if (!validateAttendees()) {
+        dispatch({ type: 'SET_SUBMITTING', isSubmitting: false });
+        return;
+      }
+
+      // Sanitize attendees data - remove dashes from CNIC and format WhatsApp numbers
+      const attendeesWithFiles = state.attendees.map(att => {
+        // Remove dashes from CNIC number before sending
+        const cnic_number = att.cnic_number ? att.cnic_number.replace(/-/g, '') : '';
+        let whatsapp_number = att.whatsapp_number;
+        if (whatsapp_number && !whatsapp_number.startsWith('+')) {
+          whatsapp_number = '+' + whatsapp_number;
+        }
+        return { ...att, cnic_number, whatsapp_number };
+      });
 
       const formData = new FormData();
       
@@ -183,43 +197,21 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
       // Add primary attendee index for all ticket types
       formData.append('primary_attendee_index', state.primaryAttendeeIndex.toString());
       
-      // Add attendees data
-      state.attendees.forEach((attendee, index) => {
-        // Add each attendee field with a different format
-        formData.append(`attendees[${index}][first_name]`, attendee.first_name || '');
-        formData.append(`attendees[${index}][last_name]`, attendee.last_name || '');
-        formData.append(`attendees[${index}][email]`, attendee.email || '');
-        formData.append(`attendees[${index}][cnic_number]`, attendee.cnic_number || '');
-        formData.append(`attendees[${index}][whatsapp_number]`, attendee.whatsapp_number || '');
-        formData.append(`attendees[${index}][instagram_url]`, attendee.instagram_url || '');
-        formData.append(`attendees[${index}][gender]`, (attendee.gender || 0).toString());
-        if (attendee.cnic_front instanceof File) {
-          formData.append(`attendees[${index}][cnic_front]`, attendee.cnic_front);
-        }
+      // Add attendees data using the sanitized data
+      attendeesWithFiles.forEach((attendee, index) => {
+        Object.entries(attendee).forEach(([key, value]) => {
+          if (key === 'cnic_front' && value instanceof File) {
+            formData.append(`attendees[${index}][${key}]`, value);
+          } else {
+            formData.append(`attendees[${index}][${key}]`, value as any);
+          }
+        });
       });
 
       // Ensure we have attendees data
       if (state.attendees.length === 0) {
         throw new Error('No attendees data available');
       }
-
-      // Debug: Log form data being sent
-      console.log('Form data being sent:');
-      console.log('Ticket type:', state.ticketType);
-      console.log('Available ticket types:', state.ticketTypes);
-      console.log('Selected ticket type object:', ticketTypeObj);
-      console.log('Primary attendee index:', state.primaryAttendeeIndex);
-      console.log('Selected referral:', state.selectedReferral);
-      console.log('Attendees count:', state.attendees.length);
-      console.log('Attendees data:', state.attendees);
-      
-      // Check if the key the backend is looking for exists
-      console.log('Checking for attendees[0][first_name]:', formData.has('attendees[0][first_name]'));
-      
-      // Log all form data entries
-      formData.forEach((value, key) => {
-        console.log(`${key}:`, value);
-      });
 
       const response = await fetch(API_REGISTER, {
         method: 'POST',

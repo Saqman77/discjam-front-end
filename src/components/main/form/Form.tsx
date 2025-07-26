@@ -126,6 +126,7 @@ const Form = () => {
                                             placeholder='First name (important*)' 
                                             value={attendee.first_name}
                                             onChange={(e) => handleAttendeeChange(0, 'first_name', e.target.value)}
+                                            required
                                         />
                                         <img src={name} alt="" />
                                         {state.errors.first_name_0 && <span className="error-text">{state.errors.first_name_0}</span>}
@@ -136,6 +137,7 @@ const Form = () => {
                                             placeholder='Last name (important*)' 
                                             value={attendee.last_name}
                                             onChange={(e) => handleAttendeeChange(0, 'last_name', e.target.value)}
+                                            required
                                         />
                                         <img src={name} alt="" />
                                         {state.errors.last_name_0 && <span className="error-text">{state.errors.last_name_0}</span>}
@@ -146,6 +148,7 @@ const Form = () => {
                                             placeholder='valid email (important*)' 
                                             value={attendee.email}
                                             onChange={(e) => handleAttendeeChange(0, 'email', e.target.value)}
+                                            required
                                         />
                                         <img src={mail} alt="" />
                                         {state.errors.email_0 && <span className="error-text">{state.errors.email_0}</span>}
@@ -157,6 +160,7 @@ const Form = () => {
                                             value={attendee.cnic_number}
                                             onChange={(e) => handleCNICChange(0, e.target.value)}
                                             maxLength={15}
+                                            required
                                         />
                                         <img src={nic} alt="" />
                                         {state.errors.cnic_number_0 && <span className="error-text">{state.errors.cnic_number_0}</span>}
@@ -167,6 +171,7 @@ const Form = () => {
                                             placeholder='whatsapp phone (important*)' 
                                             value={attendee.whatsapp_number}
                                             onChange={(e) => handleAttendeeChange(0, 'whatsapp_number', e.target.value)}
+                                            required
                                         />
                                         <img src={phone} alt="" />
                                         {state.errors.whatsapp_number_0 && <span className="error-text">{state.errors.whatsapp_number_0}</span>}
