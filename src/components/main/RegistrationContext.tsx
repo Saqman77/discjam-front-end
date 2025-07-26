@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 import { registrationReducer } from './RegistrationReducer';
 import type { TicketType, Referral, Gender, RegistrationAttendee } from '@api/api';
 
-const API_REGISTER = 'https://discjam-event-management-system.onrender.com/api/register/';
-const API_TICKET_TYPES = 'https://discjam-event-management-system.onrender.com/api/ticket-types/';
-const API_REFERRALS = 'https://discjam-event-management-system.onrender.com/api/referrals/';
-const API_GENDERS = 'https://discjam-event-management-system.onrender.com/api/genders/';
+const API_REGISTER = '/api/register/';
+const API_TICKET_TYPES = '/api/ticket-types/';
+const API_REFERRALS = '/api/referrals/';
+const API_GENDERS = '/api/genders/';
 
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,23 +64,44 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
   useEffect(() => {
     dispatch({ type: 'SET_LOADING', isLoading: true });
     
-    fetch(API_TICKET_TYPES)
-      .then(r => r.json())
+    fetch(API_TICKET_TYPES, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+        return r.json();
+      })
       .then(data => dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: data.ticket_types || data }))
       .catch(error => {
         console.error('Error fetching ticket types:', error);
         dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: [] });
       });
     
-    fetch(API_REFERRALS)
-      .then(r => r.json())
+    fetch(API_REFERRALS, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+        return r.json();
+      })
       .then(data => dispatch({ type: 'SET_REFERRALS', referrals: data.referrals || data }))
       .catch(error => {
         console.error('Error fetching referrals:', error);
         dispatch({ type: 'SET_REFERRALS', referrals: [] });
       });
     
-    fetch(API_GENDERS)
+    fetch(API_GENDERS, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then(r => {
         if (!r.ok) {
           throw new Error(`HTTP error! status: ${r.status}`);
