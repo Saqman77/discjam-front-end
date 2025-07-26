@@ -3,6 +3,7 @@
     "jsx": "react-jsx",
     "outDir": "./dist",
     "baseUrl": "./",
+    "esModuleInterop": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@scenes/*": ["src/scenes/*"],
