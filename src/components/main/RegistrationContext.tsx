@@ -68,7 +68,9 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
+      mode: 'cors',
     })
       .then(r => {
         if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
@@ -77,14 +79,21 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
       .then(data => dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: data.ticket_types || data }))
       .catch(error => {
         console.error('Error fetching ticket types:', error);
-        dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: [] });
+        // Set default ticket types if API fails
+        const defaultTicketTypes = [
+          { id: 1, name: 'Single', price: 1000 },
+          { id: 2, name: 'Couple', price: 1800 }
+        ];
+        dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: defaultTicketTypes });
       });
     
     fetch(API_REFERRALS, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
+      mode: 'cors',
     })
       .then(r => {
         if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
@@ -93,14 +102,23 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
       .then(data => dispatch({ type: 'SET_REFERRALS', referrals: data.referrals || data }))
       .catch(error => {
         console.error('Error fetching referrals:', error);
-        dispatch({ type: 'SET_REFERRALS', referrals: [] });
+        // Set default referrals if API fails
+        const defaultReferrals = [
+          { id: 1, first_name: 'Social', last_name: 'Media' },
+          { id: 2, first_name: 'Friend', last_name: 'Referral' },
+          { id: 3, first_name: 'Advertisement', last_name: 'Referral' },
+          { id: 4, first_name: 'Other', last_name: 'Referral' }
+        ];
+        dispatch({ type: 'SET_REFERRALS', referrals: defaultReferrals });
       });
     
     fetch(API_GENDERS, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
+      mode: 'cors',
     })
       .then(r => {
         if (!r.ok) {
