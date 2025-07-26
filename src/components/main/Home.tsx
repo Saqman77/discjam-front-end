@@ -20,7 +20,7 @@ const RegistrationScreens = () => {
   // Animate in on mount
   useGSAP(() => {
     if (screenRef.current) {
-      gsap.fromTo(screenRef.current, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' });
+      gsap.fromTo(screenRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power4.in' });
     }
   }, [state.step]);
 
