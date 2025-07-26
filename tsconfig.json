@@ -12,6 +12,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "skipLibCheck": true,
+    "module": "ESNext",
     "paths": {
       "@components/*": ["src/components/*"],
       "@scenes/*": ["src/scenes/*"],

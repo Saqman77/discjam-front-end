@@ -3,10 +3,14 @@ import type { ReactNode } from 'react';
 import { registrationReducer } from './RegistrationReducer';
 import type { TicketType, Referral, Gender, RegistrationAttendee } from '@api/api';
 
-const API_REGISTER = 'https://discjam-event-management-system.onrender.com/api/register/';
-const API_TICKET_TYPES = 'https://discjam-event-management-system.onrender.com/api/ticket-types/';
-const API_REFERRALS = 'https://discjam-event-management-system.onrender.com/api/referrals/';
-const API_GENDERS = 'https://discjam-event-management-system.onrender.com/api/genders/';
+// Use proxy in development, direct URLs in production
+const isDev = import.meta.env.DEV;
+const baseUrl = isDev ? '' : 'https://discjam-event-management-system.onrender.com';
+
+const API_REGISTER = `${baseUrl}/api/register/`;
+const API_TICKET_TYPES = `${baseUrl}/api/ticket-types/`;
+const API_REFERRALS = `${baseUrl}/api/referrals/`;
+const API_GENDERS = `${baseUrl}/api/genders/`;
 
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
