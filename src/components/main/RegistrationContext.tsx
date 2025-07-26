@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 import { registrationReducer } from './RegistrationReducer';
 import type { TicketType, Referral, Gender, RegistrationAttendee } from '../../types/api';
 
-const API_REGISTER = '/api/register/';
-const API_TICKET_TYPES = '/api/ticket-types/';
-const API_REFERRALS = '/api/referrals/';
-const API_GENDERS = '/api/genders/';
+const API_REGISTER = 'https://discjam-event-management-system.onrender.com/register/';
+const API_TICKET_TYPES = 'https://discjam-event-management-system.onrender.com/ticket-types/';
+const API_REFERRALS = 'https://discjam-event-management-system.onrender.com/referrals/';
+const API_GENDERS = 'https://discjam-event-management-system.onrender.com/genders/';
 
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
