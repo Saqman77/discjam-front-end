@@ -4,12 +4,15 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "esModuleInterop": true,
+    "strictNullChecks": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@scenes/*": ["src/scenes/*"],
       "@hooks/*": ["src/hooks/*"],
       "@assets/*": ["src/assets/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@pages/*": ["src/pages/*"],
+      "@routes/*": ["src/routes/*"]
     },
     "types": ["node"] 
   },
