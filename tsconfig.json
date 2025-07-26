@@ -20,7 +20,7 @@
       "@styles/*": ["src/styles/*"],
       "@pages/*": ["src/pages/*"],
       "@routes/*": ["src/routes/*"],
-      "@types/*": ["src/types/*"],
+      "@api/*": ["src/types/*"],
     },
     "types": ["node", "three"] 
   },
