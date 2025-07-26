@@ -9,13 +9,15 @@ import Form from "./form/Form";
 import Couple from "./couple/Couple";
 import Primary from "./primary/Primary";
 import Terms from "./t&c/Terms";
-import Succ from "./success/Succ";
+import Success from "./success/Success";
+import Failure from "./Failure/Failure";
 
 const SESSION_KEY = 'prescreenHidden';
 
 const RegistrationScreens = () => {
-  const { state } = useRegistrationContext();
+  const { state, handleSubmit, dispatch } = useRegistrationContext();
   const screenRef = useRef<HTMLDivElement>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   // Animate in on mount
   useGSAP(() => {
@@ -24,7 +26,46 @@ const RegistrationScreens = () => {
     }
   }, [state.step]);
 
-  let ScreenComponent = null;
+  // Handle form submission from Terms component
+  const handleFormSubmission = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      await handleSubmit(e);
+      
+      // Debug: Log the state after submission
+      console.log('After handleSubmit:');
+      console.log('state.error:', state.error);
+      console.log('state.errors:', state.errors);
+      console.log('state.success:', state.success);
+      
+      // Check if submission was successful by checking for errors
+      if (!state.error && Object.keys(state.errors).length === 0) {
+        console.log('Submission successful - navigating to success');
+        setIsSuccess(true);
+        // Only navigate to success step on actual success
+        const nextStep = state.ticketType === 'single' ? 4 : 5;
+        dispatch({ type: 'SET_STEP_NUMBER', stepNumber: nextStep });
+      } else {
+        console.log('Submission failed - staying on Terms to show errors');
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      console.log('Exception caught - staying on Terms to show errors');
+      // Don't navigate - stay on Terms to show errors
+      setIsSuccess(false);
+    }
+  };
+
+  // Add retry functionality for server errors
+  const handleRetry = () => {
+    // Reset success state and go back to Terms
+    // setIsSuccess(null);
+    // const termsStep = state.ticketType === 'single' ? 3 : 4;
+    // dispatch({ type: 'SET_STEP_NUMBER', stepNumber: termsStep });
+  };
+
+  let ScreenComponent: React.ReactElement | null = null;
   switch (state.step) {
     case 1:
       ScreenComponent = <Type />;
@@ -33,13 +74,13 @@ const RegistrationScreens = () => {
       ScreenComponent = state.ticketType === 'single' ? <Form /> : <Couple />;
       break;
     case 3:
-      ScreenComponent = state.ticketType === 'single' ? <Terms /> : <Primary />;
+      ScreenComponent = state.ticketType === 'single' ? <Terms onSubmit={handleFormSubmission} /> : <Primary />;
       break;
     case 4:
-      ScreenComponent = state.ticketType === 'single' ? <Succ /> : <Terms />;
+      ScreenComponent = state.ticketType === 'single' ? <Success isSuccess={isSuccess === true} onRetry={handleRetry} /> : <Failure isSuccess={isSuccess === false} />;
       break;
     case 5:
-      ScreenComponent = <Succ />;
+      ScreenComponent = <Success isSuccess={isSuccess === true} onRetry={handleRetry} />;
       break;
     default:
       ScreenComponent = <Type />;

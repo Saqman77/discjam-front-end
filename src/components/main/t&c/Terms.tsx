@@ -1,37 +1,39 @@
 
-import { useState } from 'react'
+import * as React from 'react';
 import './terms.scss'
 import { useRegistrationContext } from '../RegistrationContext'
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 
-const Terms = () => {
-  const [isChecked, setIsChecked] = useState(false)
-  const { dispatch } = useRegistrationContext();
-  const termsRef = useRef<HTMLDivElement>(null);
+interface TermsProps {
+  onSubmit: (e: React.FormEvent) => Promise<void>;
+}
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(e.target.checked)
-  }
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!termsRef.current) return;
-    gsap.to(termsRef.current, {
-      opacity: 0,
-      duration: 0.5,
-      onComplete: () => {
-        dispatch({ type: 'SET_STEP_NUMBER', stepNumber: 5 });
-      }
-    });
-  }
+const Terms = ({ onSubmit }: TermsProps) => {
+    const { state } = useRegistrationContext();
+    const [isChecked, setIsChecked] = React.useState(false);
+    const formRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div className='tc-container' ref={termsRef}>
-        <div className="terms">
-            <div className="heading">
-                <h4>TERMS AND CONDITIONS</h4>
-            </div>
-            <div className="desc">
+    const handleSubmitForm = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!isChecked) {
+            alert('Please accept the terms and conditions');
+            return;
+        }
+        
+        if (!formRef.current) return;
+        
+        // Call the onSubmit prop from parent component
+        await onSubmit(e);
+    };
+
+    return (
+        <div className="tc-container" ref={formRef}>
+            <div className="terms">
+                <div className="heading">
+                    <h4>TERMS & CONDITIONS</h4>
+                </div>
+                <div className="desc">
                 <p>
                 {'As collectives we function on inclusivity & work tirelessly towards making our events a safe space for everyone. This includes (but is not limited to) a zero tolerance policy towards any form of harassment, discrimination, sexism, violence and anything nonconsensual including documentation (for example: photography or video)'}
                 </p>
@@ -40,28 +42,54 @@ const Terms = () => {
                     {'By submitting this form, you agree to our safe space policies and understand that violating any of these terms will result in you being removed from the event and banned from future events.'}
                 </p>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="agree">
-                  <label className="checkbox-container">
-                      <input 
-                          type="checkbox" 
-                          className="circular-checkbox" 
-                          checked={isChecked}
-                          onChange={handleCheckboxChange}
-                      />
-                      <span className="checkmark"></span>
-                      <span className="agree-text">I agree</span>
-                  </label>
-              </div>
-              <div className="submit-row">
-                  <button className={`submit ${!isChecked ? 'disabled' : ''}`} type="submit" disabled={!isChecked}>
-                      submit
-                  </button>
-              </div>
-            </form>
+                <form onSubmit={handleSubmitForm}>
+                    <div className="agree">
+                      <label className="checkbox-container">
+                        <input 
+                            type="checkbox"
+                            className="circular-checkbox"
+                            id="terms-checkbox"
+                            checked={isChecked}
+                            onChange={(e) => setIsChecked(e.target.checked)}
+                            required
+                        />
+                        <span className="checkmark"></span>
+                        <span className="agree-text">I agree</span>
+                      </label>
+                    </div>
+                    {state.error && (
+                        <div className="error-message">
+                            {state.error}
+                            <button 
+                                onClick={() => window.location.reload()}
+                                style={{
+                                    marginTop: '10px',
+                                    padding: '8px 16px',
+                                    backgroundColor: '#4EFC00',
+                                    color: '#0E0E0E',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    fontSize: '14px',
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    )}
+                    {state.success && (
+                        <div className="success-message">
+                            {state.success}
+                        </div>
+                    )}
+                    <button type="submit" className="submit-button" disabled={state.isSubmitting || !isChecked}>
+                        {state.isSubmitting ? 'Submitting Registration...' : 'Submit Registration'}
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Terms

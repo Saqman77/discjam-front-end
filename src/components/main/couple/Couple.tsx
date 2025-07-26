@@ -10,26 +10,74 @@ import { useRef } from 'react'
 import { gsap } from 'gsap'
 
 const Couple = () => {
-    const [uploadState, setUploadState] = React.useState<'idle' | 'success' | 'reupload'>('idle');
-    const [fileName, setFileName] = React.useState<string | null>(null);
-    const { dispatch } = useRegistrationContext();
+    const { 
+        state, 
+        dispatch,
+        handleAttendeeChange, 
+        handleCNICChange, 
+        handleReferralChange
+    } = useRegistrationContext();
+    
     const formRef = useRef<HTMLDivElement>(null);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Show loading state if data is still being fetched
+    if (state.isLoading) {
+        return (
+            <div className="c-container">
+                <div className="c-wrapper">
+                    <div className="l-content">
+                        <div className="heading">
+                            <h2>Loading...</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const handleFileChange = (attendeeIndex: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setFileName(e.target.files[0].name);
-            setUploadState('success');
+            handleAttendeeChange(attendeeIndex, 'cnic_front', e.target.files[0]);
         }
     };
 
-    const handleReupload = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-        setUploadState('reupload');
-        setFileName(null);
-    };
-
-    const handleContinue = (e: React.FormEvent) => {
+    const handleContinue = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!formRef.current) return;
+        
+        // Validate form data for both attendees before proceeding
+        const errors: { [key: string]: string } = {};
+        
+        // Validate attendee 0
+        const attendee0 = state.attendees[0];
+        if (!attendee0?.first_name) errors.first_name_0 = 'First name is required';
+        if (!attendee0?.last_name) errors.last_name_0 = 'Last name is required';
+        if (!attendee0?.email) errors.email_0 = 'Email is required';
+        if (!attendee0?.cnic_number) errors.cnic_number_0 = 'CNIC number is required';
+        if (!attendee0?.whatsapp_number) errors.whatsapp_number_0 = 'WhatsApp number is required';
+        if (!attendee0?.gender) errors.gender_0 = 'Gender is required';
+        if (!attendee0?.cnic_front) errors.cnic_front_0 = 'CNIC front image is required';
+        
+        // Validate attendee 1
+        const attendee1 = state.attendees[1];
+        if (!attendee1?.first_name) errors.first_name_1 = 'First name is required';
+        if (!attendee1?.last_name) errors.last_name_1 = 'Last name is required';
+        if (!attendee1?.email) errors.email_1 = 'Email is required';
+        if (!attendee1?.cnic_number) errors.cnic_number_1 = 'CNIC number is required';
+        if (!attendee1?.whatsapp_number) errors.whatsapp_number_1 = 'WhatsApp number is required';
+        if (!attendee1?.gender) errors.gender_1 = 'Gender is required';
+        if (!attendee1?.cnic_front) errors.cnic_front_1 = 'CNIC front image is required';
+        
+        // Update errors in context
+        if (Object.keys(errors).length > 0) {
+            dispatch({ type: 'SET_ERRORS', errors });
+            return;
+        }
+        
+        // Clear any existing errors
+        dispatch({ type: 'SET_ERRORS', errors: {} });
+        
+        // Proceed to next step (Primary)
         gsap.to(formRef.current, {
             opacity: 0,
             duration: 0.5,
@@ -37,6 +85,145 @@ const Couple = () => {
                 dispatch({ type: 'SET_STEP_NUMBER', stepNumber: 3 });
             }
         });
+    };
+
+    const renderAttendeeForm = (attendeeIndex: number, attendeeTitle: string) => {
+        const attendee = state.attendees[attendeeIndex] || {
+            first_name: '',
+            last_name: '',
+            cnic_number: '',
+            gender: 0,
+            instagram_url: '',
+            cnic_front: '',
+            email: '',
+            whatsapp_number: ''
+        };
+
+        return (
+            <div className="form-wrapper">
+                <div className="form">
+                    <div className="form-header">
+                        <h3>{attendeeTitle}</h3>
+                        <p>Fill down this form and press submit! we will get back to you right after you're verified!</p>
+                    </div>
+                    <div className="field-wrapper">
+                        <div className="input-wrapper">
+                            <input 
+                                type="text" 
+                                placeholder='First name (important*)' 
+                                value={attendee.first_name}
+                                onChange={(e) => handleAttendeeChange(attendeeIndex, 'first_name', e.target.value)}
+                            />
+                            <img src={name} alt="" />
+                            {state.errors[`first_name_${attendeeIndex}`] && <span className="error-text">{state.errors[`first_name_${attendeeIndex}`]}</span>}
+                        </div>
+                        <div className="input-wrapper">
+                            <input 
+                                type="text" 
+                                placeholder='Last name (important*)' 
+                                value={attendee.last_name}
+                                onChange={(e) => handleAttendeeChange(attendeeIndex, 'last_name', e.target.value)}
+                            />
+                            <img src={name} alt="" />
+                            {state.errors[`last_name_${attendeeIndex}`] && <span className="error-text">{state.errors[`last_name_${attendeeIndex}`]}</span>}
+                        </div>
+                        <div className="input-wrapper">
+                            <input 
+                                type="email" 
+                                placeholder='valid email (important*)' 
+                                value={attendee.email}
+                                onChange={(e) => handleAttendeeChange(attendeeIndex, 'email', e.target.value)}
+                            />
+                            <img src={mail} alt="" />
+                            {state.errors[`email_${attendeeIndex}`] && <span className="error-text">{state.errors[`email_${attendeeIndex}`]}</span>}
+                        </div>
+                        <div className="input-wrapper">
+                            <input 
+                                type="text" 
+                                placeholder='CNIC-number (important*)' 
+                                value={attendee.cnic_number}
+                                onChange={(e) => handleCNICChange(attendeeIndex, e.target.value)}
+                                maxLength={15}
+                            />
+                            <img src={nic} alt="" />
+                            {state.errors[`cnic_number_${attendeeIndex}`] && <span className="error-text">{state.errors[`cnic_number_${attendeeIndex}`]}</span>}
+                        </div>
+                        <div className="input-wrapper">
+                            <input 
+                                type="text" 
+                                placeholder='whatsapp phone (important*)' 
+                                value={attendee.whatsapp_number}
+                                onChange={(e) => handleAttendeeChange(attendeeIndex, 'whatsapp_number', e.target.value)}
+                            />
+                            <img src={phone} alt="" />
+                            {state.errors[`whatsapp_number_${attendeeIndex}`] && <span className="error-text">{state.errors[`whatsapp_number_${attendeeIndex}`]}</span>}
+                        </div>
+                        <div className="input-wrapper">
+                            <input 
+                                type="text" 
+                                placeholder='instagram url (important*)' 
+                                value={attendee.instagram_url || ''}
+                                onChange={(e) => handleAttendeeChange(attendeeIndex, 'instagram_url', e.target.value)}
+                            />
+                            <img src={insta} alt="" />
+                        </div>
+                        <div className="input-wrapper">
+                            <select 
+                                className="reference-select" 
+                                value={state.selectedReferral || ''} 
+                                onChange={(e) => handleReferralChange(e.target.value ? Number(e.target.value) : null)}
+                            >
+                                <option value="">No Referral</option>
+                                {state.referrals && state.referrals.length > 0 ? (
+                                    state.referrals.map(r => (
+                                        <option key={r.id} value={r.id}>{r.first_name} {r.last_name}</option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>Loading referrals...</option>
+                                )}
+                            </select>
+                            <img src={name} alt="" />
+                        </div>
+                    </div>
+                    {/* Gender Dropdown Start */}
+                    <div className="input-wrapper">
+                        <select 
+                            className="gender-select" 
+                            value={attendee.gender || ''} 
+                            onChange={(e) => handleAttendeeChange(attendeeIndex, 'gender', Number(e.target.value))}
+                            required
+                        >
+                            <option value="" disabled>Select gender (important*)</option>
+                            {state.genders && state.genders.length > 0 ? (
+                                state.genders.map(g => (
+                                    <option key={g.id} value={g.id}>{g.name}</option>
+                                ))
+                            ) : (
+                                <option value="" disabled>Loading genders...</option>
+                            )}
+                        </select>
+                        {state.errors[`gender_${attendeeIndex}`] && <span className="error-text">{state.errors[`gender_${attendeeIndex}`]}</span>}
+                    </div>
+                    {/* Gender Dropdown End */}
+                    <div className='up-wrapper'>
+                        <p>Upload the front of your CNIC</p>
+                        <div className="cnic-upload">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                id={`cnic-upload-${attendeeIndex}`}
+                                onChange={handleFileChange(attendeeIndex)}
+                                required
+                            />
+                            <label htmlFor={`cnic-upload-${attendeeIndex}`} className="upload-label">
+                                {attendee.cnic_front instanceof File ? `Uploaded! ${attendee.cnic_front.name}` : 'Upload CNIC'}
+                            </label>
+                            {state.errors[`cnic_front_${attendeeIndex}`] && <span className="error-text">{state.errors[`cnic_front_${attendeeIndex}`]}</span>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     };
 
     return (
@@ -50,7 +237,6 @@ const Couple = () => {
                     </div>
                     <div className="desc">
                         <p>
-
                             <span>06th Jan 2024</span>
                             <span>Location: To the ticket holders only</span>
                             <span className='space'></span>
@@ -60,163 +246,31 @@ const Couple = () => {
                             <span>Filling out this registration form does not guarantee you a ticket/entry.</span>
                             <span>You must be over 18 with a valid CNIC / Passport / ID</span>
                             <span>CNIC / Passport / ID numbers are mandatory for every attendee.</span>
-                            <span>If you are registering for a couple's ticket, you must enter together.</span>
+                            <span>If you are registering for a couple's ticket, you must enter together.</span>
                             <span>Forms with incomplete information will not be entertained.</span>
-                            <span>Once you've filled out & submitted the form with your correct email & contact information, please wait and you'll hear back from us via email.</span>
+                            <span>Once you've filled out & submitted the form with your correct email & contact information, please wait and you'll hear back from us via email.</span>
                         </p>
                     </div>
                 </div>
                 <div className="r-content">
                     <form onSubmit={handleContinue}>
                         <div className='c-form-wrapper'>
-                            <div className="form-wrapper">
-                                <div className="form">
-                                    <div className="form-header">
-                                        <h3>ATTENDEE - 1</h3>
-                                        <p>Fill down this form and press submit! we will get back to you right after you’re verified!</p>
-                                    </div>
-                                    <div className="field-wrapper">
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='First name (important*)' />
-                                            <img src={name} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='Last name (important*)' />
-                                            <img src={name} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='valid email (important*)' />
-                                            <img src={mail} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='CNIC-number (important*)' />
-                                            <img src={nic} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='whatsapp phone (important*)' />
-                                            <img src={phone} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='instagram url (important*)' />
-                                            <img src={insta} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='reference (optional)' />
-                                            <img src={name} alt="" />
-                                        </div>
-                                    </div>
-                                    {/* Gender Dropdown Start */}
-                                    <div className="input-wrapper">
-                                        <select className="gender-select" defaultValue="" required>
-                                            <option value="" disabled>Select gender (important*)</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    {/* Gender Dropdown End */}
-                                    <div className='up-wrapper'>
-                                        <p>Upload the front of your CNIC</p>
-                                        <div className="cnic-upload">
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                id="cnic-upload"
-                                                onChange={handleFileChange}
-                                                key={fileName || ''} // reset input on reupload
-                                            />
-                                            {uploadState === 'idle' && (
-                                                <label htmlFor="cnic-upload" className="upload-label">Upload CNIC</label>
-                                            )}
-                                            {uploadState === 'success' && (
-                                                <div className="upload-label-row">
-                                                    <label htmlFor="cnic-upload" className="upload-label success">Uploaded! {fileName}</label>
-                                                    <label htmlFor="cnic-upload" className="upload-label reupload" onClick={handleReupload}>Re-upload</label>
-                                                </div>
-                                            )}
-                                            {uploadState === 'reupload' && (
-                                                <label htmlFor="cnic-upload" className="upload-label">Upload CNIC</label>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-wrapper">
-                                <div className="form">
-                                    <div className="form-header">
-                                        <h3>ATTENDEE - 2</h3>
-                                        <p>Fill down this form and press submit! we will get back to you right after you’re verified!</p>
-                                    </div>
-                                    <div className="field-wrapper">
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='First name (important*)' />
-                                            <img src={name} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='Last name (important*)' />
-                                            <img src={name} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='valid email (important*)' />
-                                            <img src={mail} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='CNIC-number (important*)' />
-                                            <img src={nic} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='whatsapp phone (important*)' />
-                                            <img src={phone} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='instagram url (important*)' />
-                                            <img src={insta} alt="" />
-                                        </div>
-                                        <div className="input-wrapper">
-                                            <input type="text" placeholder='reference (optional)' />
-                                            <img src={name} alt="" />
-                                        </div>
-                                    </div>
-                                    {/* Gender Dropdown Start */}
-                                    <div className="input-wrapper">
-                                        <select className="gender-select" defaultValue="" required>
-                                            <option value="" disabled>Select gender (important*)</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    {/* Gender Dropdown End */}
-                                    <div className='up-wrapper'>
-                                        <p>Upload the front of your CNIC</p>
-                                        <div className="cnic-upload">
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                id="cnic-upload"
-                                                onChange={handleFileChange}
-                                                key={fileName || ''} // reset input on reupload
-                                            />
-                                            {uploadState === 'idle' && (
-                                                <label htmlFor="cnic-upload" className="upload-label">Upload CNIC</label>
-                                            )}
-                                            {uploadState === 'success' && (
-                                                <div className="upload-label-row">
-                                                    <label htmlFor="cnic-upload" className="upload-label success">Uploaded! {fileName}</label>
-                                                    <label htmlFor="cnic-upload" className="upload-label reupload" onClick={handleReupload}>Re-upload</label>
-                                                </div>
-                                            )}
-                                            {uploadState === 'reupload' && (
-                                                <label htmlFor="cnic-upload" className="upload-label">Upload CNIC</label>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {renderAttendeeForm(0, 'ATTENDEE - 1')}
+                            {renderAttendeeForm(1, 'ATTENDEE - 2')}
                         </div>
+                        {state.error && (
+                            <div className="error-message">
+                                {state.error}
+                            </div>
+                        )}
+                        {state.success && (
+                            <div className="success-message">
+                                {state.success}
+                            </div>
+                        )}
                         <div className="submit">
-                            <button type="submit" className='submit-button' >
-                                continue
+                            <button type="submit" className='submit-button' disabled={state.isSubmitting}>
+                                Continue to Primary Selection
                             </button>
                         </div>
                     </form>
