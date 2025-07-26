@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { registrationReducer } from './RegistrationReducer';
-import type { TicketType, Referral, Gender, RegistrationAttendee } from 'src/types/api';
+import type { TicketType, Referral, Gender, RegistrationAttendee } from '../../types/api';
 
 const API_REGISTER = 'https://discjam-event-management-system.onrender.com/api/register/';
 const API_TICKET_TYPES = 'https://discjam-event-management-system.onrender.com/api/ticket-types/';
