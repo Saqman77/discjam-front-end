@@ -3,7 +3,7 @@ import { Route } from '@routes/RegistrationProofSubmission/$registrationId';
 import ProofSubmissionHeader from './ProofSubmissionHeader';
 import ProofSubmissionDetails from './ProofSubmissionDetails';
 import ProofSubmissionForm from './ProofSubmissionForm';
-import './proof-submission.scss';
+import '@styles/proof-submission.scss';
 
 const ProofSubmission = () => {
   const { registrationId, registration } = Route.useLoaderData();

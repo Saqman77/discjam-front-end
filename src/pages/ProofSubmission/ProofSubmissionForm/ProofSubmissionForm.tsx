@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import './proof-submission-form.scss';
+import '@styles/proof-submission-form.scss';
 
 interface ProofSubmissionFormProps {
   inputRef: RefObject<HTMLInputElement | null>;

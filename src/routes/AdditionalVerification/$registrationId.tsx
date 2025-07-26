@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
-import './additional-verification-form.scss';
+import '@styles/additional-verification-form.scss';
 
 export const Route = createFileRoute('/AdditionalVerification/$registrationId')({
   component: AdditionalVerificationReferralForm,

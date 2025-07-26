@@ -1,0 +1,24 @@
+@use "@styles/utils/variables.scss" as *;
+
+.proof-submission-details {
+  margin-bottom: 1.5rem;
+}
+.detail-item {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: $text-color;
+  font-family: $font-body;
+}
+.attendees-section {
+  margin-top: 1rem;
+}
+.attendees-list {
+  list-style: disc inside;
+  margin-left: 1.5rem;
+}
+.attendee-item {
+  font-size: 0.98rem;
+  margin-bottom: 0.25rem;
+  color: $text-muted;
+  font-family: $font-body;
+} 

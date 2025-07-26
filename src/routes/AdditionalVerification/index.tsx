@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-import './additional-verification.scss';
+import '@styles/additional-verification.scss';
 
 function AdditionalVerificationEntry() {
   const [registrationId, setRegistrationId] = useState('');

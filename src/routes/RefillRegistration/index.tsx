@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-import './refill-registration.scss';
+import '@styles/refill-registration.scss';
 
 function RefillRegistrationEntry() {
   const [registrationId, setRegistrationId] = useState('');

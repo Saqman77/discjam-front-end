@@ -1,0 +1,28 @@
+@use "@styles/utils/variables.scss" as *;
+
+.proof-submission-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $background2;
+}
+.proof-submission-page-card {
+  background: $background-modal;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2rem 2.5rem;
+  max-width: 500px;
+  width: 100%;
+  border: 2px solid $primary;
+}
+.proof-submission-page-content {
+  margin-top: 1.5rem;
+}
+.error-container {
+  color: #d32f2f;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  font-family: $font-body;
+} 

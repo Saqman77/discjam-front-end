@@ -1,0 +1,89 @@
+@use "@styles/utils/variables.scss" as *;
+
+.additional-verification-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $background2;
+}
+.additional-verification-form-card {
+  background: $background-modal;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2.5rem 2.5rem;
+  max-width: 400px;
+  width: 100%;
+  border: 2px solid $primary;
+}
+.additional-verification-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: $primary;
+  font-family: $font-body;
+}
+.additional-verification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: $text-muted;
+  font-family: $font-body;
+}
+.form-select {
+  border: 1px solid $primary;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  background: $background2;
+  color: $text-color;
+  font-family: $font-body;
+  transition: border 0.2s;
+  &:focus {
+    border-color: $accent;
+  }
+}
+.submit-button {
+  background: $primary;
+  color: $background2;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: $font-body;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: $accent;
+    color: $background;
+  }
+}
+.error-message {
+  color: #d32f2f;
+  text-align: center;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  font-family: $font-body;
+}
+.success-message {
+  color: #388e3c;
+  text-align: center;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  font-family: $font-body;
+}
+.required {
+  color: #d32f2f;
+} 

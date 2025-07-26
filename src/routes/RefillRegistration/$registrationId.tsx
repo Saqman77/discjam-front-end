@@ -5,7 +5,7 @@ import mail from '@assets/form/mail.svg';
 import nic from '@assets/form/nic.svg';
 import phone from '@assets/form/phone.svg';
 import insta from '@assets/form/instagram.svg';
-import './refill-registration-form.scss';
+import '@styles/refill-registration-form.scss';
 
 // Same constants as original registration form
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;

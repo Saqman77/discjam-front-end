@@ -1,5 +1,5 @@
 import React from 'react';
-import './proof-submission-header.scss';
+import '@styles/proof-submission-header.scss';
 
 interface ProofSubmissionHeaderProps {
   registrationId: string | number;

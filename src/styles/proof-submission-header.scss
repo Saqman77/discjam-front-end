@@ -1,0 +1,22 @@
+@use "@styles/utils/variables.scss" as *;
+
+.proof-submission-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.proof-submission-header-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: $primary;
+  font-family: $font-body;
+}
+.proof-submission-header-description {
+  font-size: 1rem;
+  color: $text-muted;
+  font-family: $font-body;
+}
+.registration-id {
+  font-family: monospace;
+  color: $primary;
+} 

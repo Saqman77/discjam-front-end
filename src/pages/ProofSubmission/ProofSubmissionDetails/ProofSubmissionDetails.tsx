@@ -1,5 +1,5 @@
 import React from 'react';
-import './proof-submission-details.scss';
+import '@styles/proof-submission-details.scss';
 
 interface Attendee {
   id: number;

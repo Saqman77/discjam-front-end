@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import './registration-proof-submission.scss';
+import '@styles/registration-proof-submission.scss';
 
 function ProofSubmissionEntry() {
   const [registrationId, setRegistrationId] = useState('');

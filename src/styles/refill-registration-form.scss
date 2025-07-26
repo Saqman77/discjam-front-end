@@ -1,0 +1,206 @@
+@use "@styles/utils/variables.scss" as *;
+
+.refill-registration-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $background2;
+}
+.refill-registration-form-card {
+  background: $background-modal;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2.5rem 2.5rem;
+  max-width: 700px;
+  width: 100%;
+  border: 2px solid $primary;
+}
+.refill-registration-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: $primary;
+  font-family: $font-body;
+}
+.refill-registration-form-description {
+  font-size: 1rem;
+  color: $text-muted;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: $font-body;
+}
+.refill-registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.attendee-details-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $primary;
+  font-family: $font-body;
+}
+.attendee-icon {
+  width: 24px;
+  height: 24px;
+}
+.attendee-section {
+  border: 1px solid $primary;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: $background2;
+}
+.attendee-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: $primary;
+  margin-bottom: 0.5rem;
+  font-family: $font-body;
+}
+.attendee-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.input-icon {
+  width: 18px;
+  height: 18px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: $text-muted;
+  font-family: $font-body;
+}
+.form-input, .form-select, .file-input {
+  border: 1px solid $primary;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  background: $background2;
+  color: $text-color;
+  font-family: $font-body;
+  transition: border 0.2s;
+  width: 100%;
+  &:focus {
+    border-color: $accent;
+  }
+}
+.file-input {
+  margin-top: 0.25rem;
+}
+.error-text {
+  color: #d32f2f;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+  font-family: $font-body;
+}
+.primary-attendee-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.primary-attendee-label {
+  font-weight: 500;
+  color: $primary;
+  font-family: $font-body;
+}
+.primary-attendee-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+.primary-attendee-button {
+  background: $background-modal;
+  border: 1px solid $primary;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: $primary;
+  font-family: $font-body;
+  &.active {
+    background: $primary;
+    color: $background2;
+    border-color: $primary;
+  }
+}
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.back-button {
+  background: $background-modal;
+  color: $primary;
+  border: 1px solid $primary;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: $font-body;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: $primary;
+    color: $background2;
+  }
+}
+.submit-button {
+  background: $primary;
+  color: $background2;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: $font-body;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: $accent;
+    color: $background;
+  }
+}
+.error-alert {
+  background: #ffeaea;
+  border: 1px solid #ffbdbd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+}
+.error-text {
+  color: #d32f2f;
+  font-size: 1rem;
+  font-family: $font-body;
+}
+.success-alert {
+  background: #eaffea;
+  border: 1px solid #baffbd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+}
+.success-text {
+  color: #388e3c;
+  font-size: 1rem;
+  font-family: $font-body;
+} 
