@@ -16,7 +16,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      'https://discjam-event-management-system.onrender.com/api': 'https://discjam-event-management-system.onrender.com/',
+      '/api': {
+        target: 'https://discjam-event-management-system.onrender.com',
+        changeOrigin: true,
+        secure: true,
+      },
     },
   },
 });
