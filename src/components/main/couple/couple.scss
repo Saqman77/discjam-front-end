@@ -300,7 +300,7 @@
                     transition: color 0.2s ease-in-out 0.5ms, background-color 0.2s ease-in-out 0.5ms ;
                     &:hover{
                         color: $background-modal;
-                        background-color: $background-modal;
+                        background-color: $primary;
                     }
                 }
             }
