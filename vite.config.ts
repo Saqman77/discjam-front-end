@@ -17,6 +17,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': 'https://discjam-event-management-system.onrender.com/',
+      '/api/register/': 'https://discjam-event-management-system.onrender.com/api/register/',
+      '/api/ticket-types/': 'https://discjam-event-management-system.onrender.com/api/ticket-types/',
+      '/api/referrals/': 'https://discjam-event-management-system.onrender.com/api/referrals/',
+      '/api/genders/': 'https://discjam-event-management-system.onrender.com/api/genders/',
     },
   },
 });
