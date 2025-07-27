@@ -30,6 +30,9 @@
   font-family: $font-body;
   cursor: pointer;
   transition: background 0.2s;
+  margin: auto;
+  width: 100%;
+  text-align: center;
   &:hover {
     background: $accent;
     color: $background;
