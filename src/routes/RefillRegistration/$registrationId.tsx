@@ -345,7 +345,7 @@ function RefillRegistrationForm() {
                       type="file"
                       accept="image/*"
                       onChange={e => handleAttendeeChange(idx, 'cnic_front', e.target.files?.[0] || '')}
-                      required
+                      required={!att.cnic_front_url}
                       className="file-input"
                     />
                     {errors[`cnic_front_${idx}`] && <span className="error-text">{errors[`cnic_front_${idx}`]}</span>}
