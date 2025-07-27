@@ -11,6 +11,8 @@
 }
 .attendees-section {
   margin-top: 1rem;
+  color: $text-color;
+  font-family: $font-body;
 }
 .attendees-list {
   list-style: disc inside;
@@ -19,6 +21,6 @@
 .attendee-item {
   font-size: 0.98rem;
   margin-bottom: 0.25rem;
-  color: $text-muted;
+  color: $text-color;
   font-family: $font-body;
 } 

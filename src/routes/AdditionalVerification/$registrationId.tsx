@@ -9,13 +9,17 @@ export const Route = createFileRoute('/AdditionalVerification/$registrationId')(
     const searchParams = new URLSearchParams(window.location.search);
     const token = searchParams.get('token');
     if (!token) throw redirect({ to: '/AdditionalVerification' });
-    // Validate token and fetch registration
-    const formData = new FormData();
-    formData.append('token', token);
-    const regResp = await fetch(`/api/register/${registrationId}/`, { credentials: 'include' });
-    if (!regResp.ok) throw redirect({ to: '/AdditionalVerification' });
-    const registration = await regResp.json();
-    return { registrationId, token, registration };
+    
+    try {
+      // Fetch registration data
+      const regResp = await fetch(`/api/register/${registrationId}/`, { credentials: 'include' });
+      if (!regResp.ok) throw redirect({ to: '/AdditionalVerification' });
+      const registration = await regResp.json().catch(() => ({}));
+      
+      return { registrationId, token, registration };
+    } catch (error) {
+      throw redirect({ to: '/AdditionalVerification' });
+    }
   },
 });
 
@@ -45,7 +49,7 @@ function AdditionalVerificationReferralForm() {
         body: formData,
       });
       if (!resp.ok) {
-        const err = await resp.json();
+        const err = await resp.json().catch(() => ({}));
         setError(err.error || 'Failed to submit referral.');
       } else {
         setSuccess('Referral submitted successfully!');

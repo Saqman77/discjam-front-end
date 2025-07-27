@@ -76,7 +76,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
     })
       .then(r => {
         if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
-        return r.json();
+        return r.json().catch(() => ({}));
       })
       .then(data => dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: data.ticket_types || data }))
       .catch(error => {
@@ -103,7 +103,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
         if (!r.ok) {
           throw new Error(`HTTP error! status: ${r.status}`);
         }
-        return r.json();
+        return r.json().catch(() => ({}));
       })
       .then(data => {
         const genders = data.genders || data;

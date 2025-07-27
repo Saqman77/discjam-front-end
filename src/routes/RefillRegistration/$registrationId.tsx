@@ -37,7 +37,7 @@ export const Route = createFileRoute('/RefillRegistration/$registrationId')({
         throw redirect({ to: '/RefillRegistration' });
       }
 
-      const registrationData = await resp.json();
+      const registrationData = await resp.json().catch(() => ({}));
       return { registrationId, registrationData };
     } catch (error) {
       throw redirect({ to: '/RefillRegistration' });
@@ -72,7 +72,7 @@ function RefillRegistrationForm() {
 
     // Fetch additional data
     fetch('/api/genders/')
-      .then(r => r.json())
+      .then(r => r.json().catch(() => ({})))
       .then(data => setGenders(data.genders || data))
       .catch(console.error);
 
@@ -201,11 +201,11 @@ function RefillRegistrationForm() {
       console.log('Response status:', response.status);
 
       if (!response.ok) {
-        const err = await response.json();
+        const err = await response.json().catch(() => ({}));
         console.log('Error response:', err);
         setError(err.error || 'Failed to update registration');
       } else {
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
         console.log('Success response:', result);
         setSuccess('Registration updated successfully!');
       }

@@ -27,7 +27,7 @@ export const Route = createFileRoute('/RegistrationProofSubmission/$registration
         throw redirect({ to: '/RegistrationProofSubmission' });
       }
       
-      const data = await resp.json();
+      const data = await resp.json().catch(() => ({}));
       
       if (!data.valid) {
         throw redirect({ to: '/RegistrationProofSubmission' });
@@ -37,7 +37,7 @@ export const Route = createFileRoute('/RegistrationProofSubmission/$registration
         if (!res.ok) {
           throw new Error(`Registration fetch failed: ${res.status}`);
         }
-        return res.json();
+        return res.json().catch(() => ({}));
       });
       
       return { registrationId, registration };

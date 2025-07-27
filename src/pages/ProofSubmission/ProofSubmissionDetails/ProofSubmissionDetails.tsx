@@ -33,7 +33,7 @@ const ProofSubmissionDetails: React.FC<ProofSubmissionDetailsProps> = ({ registr
       <ul className="attendees-list">
         {registration.attendees.map(a => (
           <li key={a.id} className="attendee-item">
-            {a.first_name} {a.last_name} ({a.email}){a.is_primary ? ' [Primary]' : ''}
+            {a.first_name}
           </li>
         ))}
       </ul>

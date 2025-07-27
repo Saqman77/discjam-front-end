@@ -41,7 +41,7 @@ const ProofSubmission = () => {
         body: formData,
       });
       if (!resp.ok) {
-        const err = await resp.json();
+        const err = await resp.json().catch(() => ({}));
         setError(err.error || 'Failed to submit payment proof.');
       } else {
         setSuccess('Payment proof submitted successfully!');

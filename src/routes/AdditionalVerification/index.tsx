@@ -20,7 +20,7 @@ function AdditionalVerificationEntry() {
         method: 'POST',
         body: formData,
       });
-      const data = await resp.json();
+      const data = await resp.json().catch(() => ({}));
       if (!resp.ok || !data.valid) {
         setError(data.error || 'Verification failed.');
       } else {
