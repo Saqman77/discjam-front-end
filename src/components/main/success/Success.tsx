@@ -15,7 +15,7 @@ const Success = () => {
             <div className="text">
               {success && <h5>Your form is successfully submitted</h5>}
               {error && <h5>There was an error</h5>}
-              {success && <p>we have received your submission, we will contact you once your verification is complete</p>}
+              {success && <p>we have received your submission, we will contact you once your verification is complete<br></br>Please check your spam/junk folder if you don't see it in your inbox</p>}
               {error && <p>{error}</p>}
             </div>
             <div className={success ? 'circ' : 'circ boobooer'}>
