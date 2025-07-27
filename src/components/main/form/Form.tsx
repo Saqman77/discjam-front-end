@@ -111,6 +111,7 @@ const Form = () => {
                             <span>– Instagram URL: Not mandatory but sharing your profile also helps with verification and increases your chances of getting approved.</span>
                             <span className='space'></span>
                             <span>Once submitted, we’ll reach out via email or WhatsApp after verification.</span>
+                            <span>Single male registrations must include a reference and Instagram handle in line with our safe space policy.</span>
                         </p>
                     </div>
                 </div>
