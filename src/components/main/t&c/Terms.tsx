@@ -57,9 +57,11 @@ const Terms = ({ onSubmit }: TermsProps) => {
                         <span className="agree-text">I agree</span>
                       </label>
                     </div>
-                    <button type="submit" className="submit-button" disabled={state.isSubmitting || !isChecked}>
-                        {state.isSubmitting ? '...' : 'Submit'}
-                    </button>
+                    <div className='submit-row'>
+                        <button type="submit" className={`submit ${!isChecked ? 'disabled' : ''}`} disabled={state.isSubmitting || !isChecked}>
+                            {state.isSubmitting ? '...' : 'Submit'}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

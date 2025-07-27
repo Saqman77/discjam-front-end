@@ -89,7 +89,12 @@ const BackArrow = () => {
   if (state.step <= 1) return null;
   const handleBack = () => {
     if (state.step > 1) {
-      dispatch({ type: 'SET_STEP_NUMBER', stepNumber: state.step - 1 });
+      // If we're on the Success component (step 4 or 5), go back to the default step (1)
+      if (state.step === 4 || state.step === 5) {
+        dispatch({ type: 'SET_STEP_NUMBER', stepNumber: 1 });
+      } else {
+        dispatch({ type: 'SET_STEP_NUMBER', stepNumber: state.step - 1 });
+      }
     }
   };
   return (
