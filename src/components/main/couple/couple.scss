@@ -205,10 +205,10 @@
                             }
 
                             .cnic-upload {
-                                height: 160px;
+                                // height: 160px;
                                 width: 100%;
                                 border: 1px solid $text-muted;
-                                border-radius: 20px;
+                                border-radius: 12px;
                                 overflow: hidden;
                                 position: relative;
                                 display: flex;
@@ -217,7 +217,7 @@
                                 align-items: center;
                                 // gap: 16px;
                                 -webkit-tap-highlight-color: transparent;
-
+    
                                 input[type="file"] {
                                     opacity: 0;
                                     width: 100%;
@@ -229,19 +229,19 @@
                                     z-index: 2;
                                     display: flex;
                                 }
-
+    
                                 .upload-label,
                                 .upload-label.success {
-                                    width: auto;
+                                    width: 100%;
                                     // min-width: 120px;
                                     // max-width: 220px;
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                    background: $primary;
-                                    color: $background;
+                                    background: $background-modal;
+                                    color: $primary;
                                     padding: 12px 12px;
-                                    border-radius: 8px;
+                                    // border-radius: 8px;
                                     font-weight: 500;
                                     font-size: 16px;
                                     cursor: pointer;
@@ -251,13 +251,13 @@
                                     text-align: center;
                                     margin: 0;
                                 }
-
+    
                                 .upload-label.success {
                                     background: #27ae5f00;
                                     color: #fff;
                                     // box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15);
                                 }
-
+    
                                 .upload-label.reupload {
                                     background: $primary;
                                     color: $background;
@@ -265,7 +265,7 @@
                                     width: max-content;
                                     padding: 12px 20px;
                                 }
-
+    
                                 // Flex row for two buttons
                                 .upload-label-row {
                                     width: 100%;
@@ -925,6 +925,7 @@
                                         // width: 100%;
                                         // min-width: 120px;
                                         // max-width: 220px;
+                                        width: 100%;
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;

@@ -194,10 +194,10 @@
                         }
 
                         .cnic-upload {
-                            height: 160px;
+                            // height: 160px;
                             width: 100%;
                             border: 1px solid $text-muted;
-                            border-radius: 20px;
+                            border-radius: 12px;
                             overflow: hidden;
                             position: relative;
                             display: flex;
@@ -221,16 +221,16 @@
 
                             .upload-label,
                             .upload-label.success {
-                                width: auto;
+                                width: 100%;
                                 // min-width: 120px;
                                 // max-width: 220px;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                                background: $primary;
-                                color: $background;
+                                background: $background-modal;
+                                color: $primary;
                                 padding: 12px 12px;
-                                border-radius: 8px;
+                                // border-radius: 8px;
                                 font-weight: 500;
                                 font-size: 16px;
                                 cursor: pointer;
@@ -536,7 +536,7 @@
                             }
 
                             .cnic-upload {
-                                height: 120px;
+                                // height: 120px;
                                 width: 100%;
                                 border: 1px solid $text-muted;
                                 border-radius: 20px;
@@ -569,8 +569,8 @@
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                    background: $primary;
-                                    color: $background;
+                                    background: $background-modal;
+                                    color: $primary;
                                     // padding: 12px 0;
                                     border-radius: 8px;
                                     font-weight: 500;
@@ -900,8 +900,8 @@
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                    background: $primary;
-                                    color: $background;
+                                    background: $background-modal;
+                                    color: $primary;
                                     // padding: 12px 0;
                                     border-radius: 8px;
                                     font-weight: 500;
