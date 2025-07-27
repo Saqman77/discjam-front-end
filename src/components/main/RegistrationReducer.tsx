@@ -56,45 +56,33 @@ export const registrationReducer = (state: RegistrationState, action: Registrati
         step: action.stepNumber,
       };
 
-    case 'SET_TICKET_TYPE': {
-      const newAttendeesInfo: RegistrationAttendee[] = [];
-      if (action.ticketType === 'couple') {
-        state.attendees.forEach((attendee) => newAttendeesInfo.push(attendee));
-        if (state.ticketType === 'single') {
-          newAttendeesInfo.push({
-            first_name: '',
-            last_name: '',
-            cnic_number: '',
-            gender: 0,
-            instagram_url: '',
-            cnic_front: '',
-            email: '',
-            whatsapp_number: ''
-          });
-        }
-      } else {
-        if (state.attendees.length > 0) {
-          newAttendeesInfo.push(state.attendees[0]);
+      case 'SET_TICKET_TYPE': {
+        const blankAttendee = {
+          first_name: '',
+          last_name: '',
+          cnic_number: '',
+          gender: 0,
+          instagram_url: '',
+          cnic_front: '',
+          email: '',
+          whatsapp_number: ''
+        };
+      
+        let newAttendeesInfo: RegistrationAttendee[] = [];
+      
+        if (action.ticketType === 'couple') {
+          newAttendeesInfo = [blankAttendee, blankAttendee];
         } else {
-          newAttendeesInfo.push({
-            first_name: '',
-            last_name: '',
-            cnic_number: '',
-            gender: 0,
-            instagram_url: '',
-            cnic_front: '',
-            email: '',
-            whatsapp_number: ''
-          });
+          newAttendeesInfo = [blankAttendee];
         }
+      
+        return {
+          ...state,
+          ticketType: action.ticketType,
+          attendees: newAttendeesInfo,
+          step: 2,
+        };
       }
-      return {
-        ...state,
-        ticketType: action.ticketType,
-        attendees: newAttendeesInfo,
-        step: 2,
-      };
-    }
 
     case 'SET_TICKET_TYPES':
       return {
