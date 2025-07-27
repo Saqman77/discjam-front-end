@@ -15,17 +15,13 @@ export const Route = createFileRoute('/AdditionalVerification/$registrationId')(
     const regResp = await fetch(`/api/register/${registrationId}/`, { credentials: 'include' });
     if (!regResp.ok) throw redirect({ to: '/AdditionalVerification' });
     const registration = await regResp.json();
-    // Fetch referrals
-    const refResp = await fetch('/api/referrals/');
-    const refData = await refResp.json();
-    const referrals = refData.referrals || refData;
-    return { registrationId, token, registration, referrals };
+    return { registrationId, token, registration };
   },
 });
 
 function AdditionalVerificationReferralForm() {
-  const { registrationId, token, registration, referrals } = Route.useLoaderData();
-  const [selectedReferral, setSelectedReferral] = useState<string>('none');
+  const { registrationId, token, registration } = Route.useLoaderData();
+  const [referralText, setReferralText] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,14 +31,14 @@ function AdditionalVerificationReferralForm() {
     setIsSubmitting(true);
     setError(null);
     setSuccess(null);
-    if (!selectedReferral || selectedReferral === 'none') {
-      setError('Referral is required and cannot be "no referral".');
+    if (!referralText || !referralText.trim()) {
+      setError('Referral is required.');
       setIsSubmitting(false);
       return;
     }
     const formData = new FormData();
     formData.append('token', token);
-    formData.append('referral', selectedReferral);
+    formData.append('referral', referralText.trim());
     try {
       const resp = await fetch(`/api/additional-verification/${registrationId}/submit/`, {
         method: 'POST',
@@ -69,17 +65,15 @@ function AdditionalVerificationReferralForm() {
           <form onSubmit={handleSubmit} className="additional-verification-form">
             <div className="form-field">
               <label className="form-label">Referral <span className="required">*</span></label>
-              <select 
-                className="form-select"
-                value={selectedReferral} 
-                onChange={e => setSelectedReferral(e.target.value)} 
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Enter referral name"
+                value={referralText}
+                onChange={e => setReferralText(e.target.value)}
                 required
-              >
-                <option value="none">Select Referral</option>
-                {referrals.filter((r: any) => r.id).map((r: any) => (
-                  <option key={r.id} value={String(r.id)}>{r.first_name} {r.last_name}</option>
-                ))}
-              </select>
+                maxLength={255}
+              />
             </div>
             <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Submitting...' : 'Submit Referral'}

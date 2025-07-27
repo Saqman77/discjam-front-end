@@ -5,9 +5,9 @@ export interface RegistrationState {
   ticketType: 'single' | 'couple' | null;
   attendees: RegistrationAttendee[];
   primaryAttendeeIndex: number;
-  selectedReferral: number | null;
+  referralText: string;
   ticketTypes: TicketType[];
-  referrals: Referral[];
+
   genders: Gender[];
   errors: { [key: string]: string };
   isSubmitting: boolean;
@@ -20,10 +20,10 @@ export type RegistrationAction =
   | { type: 'SET_STEP_NUMBER'; stepNumber: number }
   | { type: 'SET_TICKET_TYPE'; ticketType: 'single' | 'couple' }
   | { type: 'SET_TICKET_TYPES'; ticketTypes: TicketType[] }
-  | { type: 'SET_REFERRALS'; referrals: Referral[] }
+
   | { type: 'SET_GENDERS'; genders: Gender[] }
   | { type: 'UPDATE_ATTENDEE'; index: number; field: keyof RegistrationAttendee; value: string | number | File }
-  | { type: 'SET_REFERRAL'; referral: number | null }
+  | { type: 'SET_REFERRAL'; referral: string }
   | { type: 'SET_PRIMARY_ATTENDEE'; index: number }
   | { type: 'SET_ERRORS'; errors: { [key: string]: string } }
   | { type: 'SET_SUBMITTING'; isSubmitting: boolean }
@@ -37,9 +37,8 @@ const initialState: RegistrationState = {
   ticketType: null,
   attendees: [],
   primaryAttendeeIndex: 0,
-  selectedReferral: null,
+  referralText: '',
   ticketTypes: [],
-  referrals: [],
   genders: [],
   errors: {},
   isSubmitting: false,
@@ -90,11 +89,7 @@ export const registrationReducer = (state: RegistrationState, action: Registrati
         ticketTypes: action.ticketTypes,
       };
 
-    case 'SET_REFERRALS':
-      return {
-        ...state,
-        referrals: action.referrals,
-      };
+
 
     case 'SET_GENDERS':
       return {
@@ -115,7 +110,7 @@ export const registrationReducer = (state: RegistrationState, action: Registrati
     case 'SET_REFERRAL':
       return {
         ...state,
-        selectedReferral: action.referral,
+        referralText: action.referral,
       };
 
     case 'SET_PRIMARY_ATTENDEE':

@@ -225,28 +225,13 @@ const Couple = () => {
               <img src={insta} alt="" />
             </div>
             <div className="input-wrapper">
-              <select
-                className="reference-select"
-                value={state.selectedReferral || ""}
-                onChange={(e) =>
-                  handleReferralChange(
-                    e.target.value ? Number(e.target.value) : null
-                  )
-                }
-              >
-                <option value="">No Referral</option>
-                {state.referrals && state.referrals.length > 0 ? (
-                  state.referrals.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.first_name} {r.last_name}
-                    </option>
-                  ))
-                ) : (
-                  <option value="" disabled>
-                    Loading referrals...
-                  </option>
-                )}
-              </select>
+              <input 
+                type="text" 
+                placeholder='Referral (Optional)' 
+                value={state.referralText || ''}
+                onChange={(e) => handleReferralChange(e.target.value)}
+                maxLength={255}
+              />
               <img src={name} alt="" />
             </div>
           </div>

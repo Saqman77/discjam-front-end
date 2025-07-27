@@ -9,7 +9,6 @@ const baseUrl = isDev ? '' : 'https://discjam-event-management-system.onrender.c
 
 const API_REGISTER = `${baseUrl}/api/register/`;
 const API_TICKET_TYPES = `${baseUrl}/api/ticket-types/`;
-const API_REFERRALS = `${baseUrl}/api/referrals/`;
 const API_GENDERS = `${baseUrl}/api/genders/`;
 
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;
@@ -21,9 +20,9 @@ interface RegistrationState {
   ticketType: 'single' | 'couple' | null;
   attendees: RegistrationAttendee[];
   primaryAttendeeIndex: number;
-  selectedReferral: number | null;
+  referralText: string;
   ticketTypes: TicketType[];
-  referrals: Referral[];
+
   genders: Gender[];
   errors: { [key: string]: string };
   isSubmitting: boolean;
@@ -37,9 +36,8 @@ const initialState: RegistrationState = {
   ticketType: null,
   attendees: [],
   primaryAttendeeIndex: 0,
-  selectedReferral: null,
+  referralText: '',
   ticketTypes: [],
-  referrals: [],
   genders: [],
   errors: {},
   isSubmitting: false,
@@ -53,7 +51,7 @@ interface RegistrationContextType {
   dispatch: React.Dispatch<any>;
   handleAttendeeChange: (idx: number, field: keyof RegistrationAttendee, value: string | number | File) => void;
   handleCNICChange: (idx: number, value: string) => void;
-  handleReferralChange: (id: number | null) => void;
+  handleReferralChange: (text: string) => void;
   validateAttendees: () => boolean;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   formatCNIC: (value: string) => string;
@@ -91,30 +89,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
         dispatch({ type: 'SET_TICKET_TYPES', ticketTypes: defaultTicketTypes });
       });
     
-    fetch(API_REFERRALS, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      mode: 'cors',
-    })
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
-        return r.json();
-      })
-      .then(data => dispatch({ type: 'SET_REFERRALS', referrals: data.referrals || data }))
-      .catch(error => {
-        console.error('Error fetching referrals:', error);
-        // Set default referrals if API fails
-        const defaultReferrals = [
-          { id: 1, first_name: 'Social', last_name: 'Media' },
-          { id: 2, first_name: 'Friend', last_name: 'Referral' },
-          { id: 3, first_name: 'Advertisement', last_name: 'Referral' },
-          { id: 4, first_name: 'Other', last_name: 'Referral' }
-        ];
-        dispatch({ type: 'SET_REFERRALS', referrals: defaultReferrals });
-      });
+
     
     fetch(API_GENDERS, {
       method: 'GET',
@@ -165,8 +140,8 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
     handleAttendeeChange(idx, 'cnic_number', formatted);
   };
 
-  const handleReferralChange = (id: number | null) => {
-    dispatch({ type: 'SET_REFERRAL', referral: id });
+  const handleReferralChange = (text: string) => {
+    dispatch({ type: 'SET_REFERRAL', referral: text });
   };
 
   const validateAttendees = () => {
@@ -233,9 +208,9 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
         formData.append('ticket_type', state.ticketType || '');
       }
       
-      // Add referral if selected
-      if (state.selectedReferral) {
-        formData.append('referral', state.selectedReferral.toString());
+      // Add referral if provided
+      if (state.referralText && state.referralText.trim()) {
+        formData.append('referral', state.referralText.trim());
       }
       
       // Add primary attendee index for all ticket types

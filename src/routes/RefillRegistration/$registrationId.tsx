@@ -49,8 +49,8 @@ function RefillRegistrationForm() {
   const { registrationId, registrationData } = Route.useLoaderData();
   const [attendees, setAttendees] = useState<any[]>([]);
   const [genders, setGenders] = useState<any[]>([]);
-  const [referrals, setReferrals] = useState<any[]>([]);
-  const [selectedReferral, setSelectedReferral] = useState<number | null>(null);
+
+  const [referralText, setReferralText] = useState<string>('');
   const [primaryAttendee, setPrimaryAttendee] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -66,7 +66,7 @@ function RefillRegistrationForm() {
         cnic_number: attendee.cnic_number ? formatCNIC(attendee.cnic_number.toString()) : ''
       }));
       setAttendees(formattedAttendees);
-      setSelectedReferral(registrationData.referral);
+      setReferralText(registrationData.referral || '');
       setPrimaryAttendee(registrationData.primary_attendee_index || 0);
     }
 
@@ -76,10 +76,7 @@ function RefillRegistrationForm() {
       .then(data => setGenders(data.genders || data))
       .catch(console.error);
 
-    fetch('/api/referrals/')
-      .then(r => r.json())
-      .then(data => setReferrals(data.referrals || data))
-      .catch(console.error);
+
   }, [registrationData]);
 
   const handleAttendeeChange = (idx: number, field: string, value: string | number | File) => {
@@ -162,7 +159,7 @@ function RefillRegistrationForm() {
 
     const payload = {
       ticket_type: registrationData.ticket_type,
-      referral: selectedReferral,
+      referral: referralText,
       attendees: attendeesWithFiles,
       primary_attendee_index: primaryAttendee
     };
@@ -171,8 +168,8 @@ function RefillRegistrationForm() {
 
     const formData = new FormData();
     formData.append('ticket_type', String(payload.ticket_type));
-    if (payload.referral !== null && payload.referral !== undefined) {
-      formData.append('referral', String(payload.referral));
+    if (payload.referral && payload.referral.trim()) {
+      formData.append('referral', payload.referral.trim());
     }
     formData.append('primary_attendee_index', String(payload.primary_attendee_index));
     
@@ -381,14 +378,14 @@ function RefillRegistrationForm() {
 
             <div className="form-field">
               <label className="form-label">Who referred you?</label>
-              <select
-                className="form-select"
-                value={selectedReferral !== null ? String(selectedReferral) : 'none'}
-                onChange={e => setSelectedReferral(e.target.value !== 'none' ? Number(e.target.value) : null)}
-              >
-                <option value="none">No Referral</option>
-                {referrals.map(r => <option key={r.id} value={String(r.id)}>{r.first_name} {r.last_name}</option>)}
-              </select>
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Referral (Optional)"
+                value={referralText}
+                onChange={e => setReferralText(e.target.value)}
+                maxLength={255}
+              />
             </div>
 
             <div className="form-actions">
