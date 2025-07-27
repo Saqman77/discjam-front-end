@@ -54,9 +54,9 @@ const Primary = () => {
                                 <p>{attendee.first_name || `Attendee ${idx + 1}`}</p>
                             </div>
                         </div>
-                        {/* <div className="bottom">
+                        <div className="bottom">
                             <p>{attendee.first_name && attendee.last_name ? `${attendee.first_name} ${attendee.last_name}` : `ATTENDEE ${idx + 1}`}</p>
-                        </div> */}
+                        </div>
                     </div>
                 ))}
             </div>

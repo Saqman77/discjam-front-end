@@ -68,7 +68,7 @@ const RegistrationScreens = () => {
       ScreenComponent = state.ticketType === 'single' ? <Terms onSubmit={handleFormSubmission} /> : <Primary />;
       break;
     case 4:
-      ScreenComponent = state.ticketType === 'single' ? <Success /> : <Primary />;
+      ScreenComponent = state.ticketType === 'single' ? <Success /> : <Terms onSubmit={handleFormSubmission} />;
       break;
     case 5:
       ScreenComponent = <Success />;
