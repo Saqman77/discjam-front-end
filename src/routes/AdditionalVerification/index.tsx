@@ -71,7 +71,7 @@ function AdditionalVerificationEntry() {
               />
             </div>
             <div className="form-field">
-              <label className="form-label">Primary Attendee CNIC Number</label>
+              <label className="form-label">Your CNIC Number</label>
               <input 
                 type="text"
                 className="form-input"
