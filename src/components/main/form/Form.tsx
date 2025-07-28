@@ -208,7 +208,7 @@ const Form = () => {
                                         onChange={(e) => handleAttendeeChange(0, 'gender', Number(e.target.value))}
                                         required
                                     >
-                                        <option value="" disabled>Select gender (important*)</option>
+                                        <option value="" disabled>Gender*</option>
                                         {state.genders && state.genders.length > 0 ? (
                                             state.genders.map(g => (
                                                 <option key={g.id} value={g.id}>{g.name}</option>

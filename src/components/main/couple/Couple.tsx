@@ -227,7 +227,7 @@ const Couple = () => {
             <div className="input-wrapper">
               <input 
                 type="text" 
-                placeholder='Referral (Optional)' 
+                placeholder='Reference' 
                 value={state.referralText || ''}
                 onChange={(e) => handleReferralChange(e.target.value)}
                 maxLength={255}
@@ -250,7 +250,7 @@ const Couple = () => {
               required
             >
               <option value="" disabled>
-                Select gender (important*)
+                Gender*
               </option>
               {state.genders && state.genders.length > 0 ? (
                 state.genders.map((g) => (
