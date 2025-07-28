@@ -35,6 +35,26 @@ function ProofSubmissionEntry() {
     }
   };
 
+   // Same CNIC formatting function as original registration
+   const formatCNIC = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+    if (digits.length <= 5) return digits;
+    if (digits.length <= 12) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+    return `${digits.slice(0, 5)}-${digits.slice(5, 12)}-${digits.slice(12, 13)}`;
+  };
+
+  const handleCNICChange = (idx: number, value: string) => {
+    const formatted = formatCNIC(value);
+    setCnic(formatted);
+  };
+
+  const handleCNICPaste = (idx: number, e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedText = e.clipboardData.getData('text');
+    const formatted = formatCNIC(pastedText);
+    setCnic(formatted);
+  };
+
   return (
     <div className="proof-submission-container">
       <div className="proof-submission-card">
@@ -57,8 +77,10 @@ function ProofSubmissionEntry() {
                 type="text"
                 className="form-input"
                 value={cnic} 
-                onChange={e => setCnic(e.target.value)} 
                 required 
+                onPaste={e => handleCNICPaste(0, e)}
+                onChange={e => handleCNICChange(0, e.target.value)}
+                maxLength={15}
                 placeholder="xxxxx-xxxxxxx-x" 
               />
             </div>

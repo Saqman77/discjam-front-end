@@ -6,6 +6,7 @@
   align-items: center;
   min-height: 100vh;
   background: $background2;
+  padding: 1rem;
 
 .additional-verification-form-card {
   background: $background-modal;
@@ -40,6 +41,23 @@
   color: $text-muted;
   font-family: $font-body;
 }
+
+.form-input, .form-select, .file-input {
+  border: 1px solid $primary;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  background: $background2;
+  color: $text-color;
+  font-family: $font-body;
+  transition: border 0.2s;
+  width: 100%;
+  &:focus {
+    border-color: $accent;
+  }
+}
+
 .form-select {
   border: 1px solid $primary;
   border-radius: 8px;
