@@ -29,13 +29,17 @@ const PreScreen = ({ clicked }: { clicked: boolean }) => {
             <div className="pre-wrapper">
                 <div className="left" ref={lRef}>
                     <div className="top">
-                        <h1> SIGN U</h1>
+                        <div className='head-wrapper'>
+                            <h1> SIGN U</h1>
+                        </div>
                     </div>
                 </div>
                 <div className="right" ref={rRef}>
                     <img src={logo} alt="" />
                     <div className="top">
-                        <h1>P NOW</h1>
+                        <div className='head-wrapper'>
+                            <h1>P NOW</h1>
+                        </div>
                     </div>
                 </div>
             </div>
