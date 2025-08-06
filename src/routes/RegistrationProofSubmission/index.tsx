@@ -1,14 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { api } from '@utils/api';
 import '@styles/registration-proof-submission.scss';
+import { storeRegistrationToken } from '@utils/auth';
 
 function ProofSubmissionEntry() {
   const [registrationId, setRegistrationId] = useState('');
   const [cnic, setCnic] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,15 +18,14 @@ function ProofSubmissionEntry() {
       const formData = new FormData();
       formData.append('registration_id', registrationId);
       formData.append('cnic_number', cnic.replace(/-/g, ''));
-      const resp = await fetch('/api/verify-registration/', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await resp.json().catch(() => ({}));
+      const resp = await api.post('/api/verify-registration/', formData);
+      const data = await resp.json();
       if (!resp.ok || !data.valid) {
         setError(data.error || 'Verification failed.');
       } else {
-        window.location.href = `/RegistrationProofSubmission/${registrationId}?token=${encodeURIComponent(data.token)}`;
+        // Store JWT token for authentication
+        storeRegistrationToken(registrationId, data.token);
+        window.location.href = `/RegistrationProofSubmission/${registrationId}`;
       }
     } catch (e: any) {
       setError(e.message || 'Verification failed.');

@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
+import { api } from '@utils/api';
 import '@styles/refill-registration.scss';
+import { storeRegistrationToken } from '@utils/auth';
 
 function RefillRegistrationEntry() {
   const [registrationId, setRegistrationId] = useState('');
@@ -16,15 +18,14 @@ function RefillRegistrationEntry() {
       const formData = new FormData();
       formData.append('registration_id', registrationId);
       formData.append('cnic_number', cnic.replace(/-/g, ''));
-      const resp = await fetch('/api/verify-refill-access/', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await resp.json().catch(() => ({}));
+      const resp = await api.post('/api/verify-refill-access/', formData);
+      const data = await resp.json();
       if (!resp.ok || !data.valid) {
         setError(data.error || 'Verification failed.');
       } else {
-        window.location.href = `/RefillRegistration/${registrationId}?token=${encodeURIComponent(data.token)}`;
+        // Store JWT token for authentication
+        storeRegistrationToken(registrationId, data.token);
+        window.location.href = `/RefillRegistration/${registrationId}`;
       }
     } catch (e: any) {
       setError(e.message || 'Verification failed.');

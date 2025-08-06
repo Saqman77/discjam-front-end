@@ -1,4 +1,4 @@
-import type { TicketType, Referral, Gender, RegistrationAttendee } from '../../types/api';
+import type { TicketType, Referral, Gender, RegistrationAttendee } from '@api/api';
 
 export interface RegistrationState {
   step: number;

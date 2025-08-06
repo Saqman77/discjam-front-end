@@ -1,11 +1,14 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
+import { api } from '@utils/api';
 import name from '@assets/form/name.svg';
 import mail from '@assets/form/mail.svg';
 import nic from '@assets/form/nic.svg';
 import phone from '@assets/form/phone.svg';
 import insta from '@assets/form/instagram.svg';
 import '@styles/refill-registration-form.scss';
+import { getRegistrationToken, makeAuthenticatedRequest, handleTokenExpiration } from '@utils/auth';
+import { BASE_URL } from '@constants';
 
 // Same constants as original registration form
 const CNIC_REGEX = /^\d{5}-\d{7}-\d{1}$/;
@@ -17,27 +20,37 @@ export const Route = createFileRoute('/RefillRegistration/$registrationId')({
   loader: async (context) => {
     const { registrationId } = context.params;
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const token = searchParams.get('token');
+    // Check if we have a valid JWT token
+    const jwtToken = getRegistrationToken(registrationId);
 
-    if (!token) {
+    if (!jwtToken) {
       throw redirect({ to: '/RefillRegistration' });
     }
 
     try {
-      const formData = new FormData();
-      formData.append('token', token);
-
-      const resp = await fetch(`/api/refill-registration/${registrationId}/`, {
-        method: 'POST',
-        body: formData,
-      });
+      // Fetch refill registration data with JWT authentication
+      const resp = await makeAuthenticatedRequest(
+        `${BASE_URL}/api/refill-registration/${registrationId}/`,
+        registrationId,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({}), // Empty JSON body since authentication is via JWT
+        }
+      );
+      
+      if (resp.status === 401 || resp.status === 403) {
+        handleTokenExpiration(registrationId, '/RefillRegistration');
+        throw redirect({ to: '/RefillRegistration' });
+      }
 
       if (!resp.ok) {
         throw redirect({ to: '/RefillRegistration' });
       }
 
-      const registrationData = await resp.json().catch(() => ({}));
+      const registrationData = await resp.json();
       return { registrationId, registrationData };
     } catch (error) {
       throw redirect({ to: '/RefillRegistration' });
@@ -49,8 +62,7 @@ function RefillRegistrationForm() {
   const { registrationId, registrationData } = Route.useLoaderData();
   const [attendees, setAttendees] = useState<any[]>([]);
   const [genders, setGenders] = useState<any[]>([]);
-
-  const [referralText, setReferralText] = useState<string>('');
+  const [selectedReferral, setSelectedReferral] = useState<string | null>(null);
   const [primaryAttendee, setPrimaryAttendee] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -66,13 +78,13 @@ function RefillRegistrationForm() {
         cnic_number: attendee.cnic_number ? formatCNIC(attendee.cnic_number.toString()) : ''
       }));
       setAttendees(formattedAttendees);
-      setReferralText(registrationData.referral || '');
+      setSelectedReferral(registrationData.referral);
       setPrimaryAttendee(registrationData.primary_attendee_index || 0);
     }
 
     // Fetch additional data
-    fetch('/api/genders/')
-      .then(r => r.json().catch(() => ({})))
+    api.get('/api/genders/')
+      .then(r => r.json())
       .then(data => setGenders(data.genders || data))
       .catch(console.error);
 
@@ -159,7 +171,7 @@ function RefillRegistrationForm() {
 
     const payload = {
       ticket_type: registrationData.ticket_type,
-      referral: referralText,
+      referral: selectedReferral,
       attendees: attendeesWithFiles,
       primary_attendee_index: primaryAttendee
     };
@@ -168,8 +180,8 @@ function RefillRegistrationForm() {
 
     const formData = new FormData();
     formData.append('ticket_type', String(payload.ticket_type));
-    if (payload.referral && payload.referral.trim()) {
-      formData.append('referral', payload.referral.trim());
+    if (payload.referral !== null && payload.referral !== undefined) {
+      formData.append('referral', String(payload.referral));
     }
     formData.append('primary_attendee_index', String(payload.primary_attendee_index));
     
@@ -183,29 +195,26 @@ function RefillRegistrationForm() {
       });
     });
 
-    // Add token from URL
-    const searchParams = new URLSearchParams(window.location.search);
-    const token = searchParams.get('token');
-    if (token) {
-      formData.append('token', token);
-    }
-
     console.log('FormData prepared, submitting...');
 
     try {
-      const response = await fetch(`/api/refill-registration/${registrationId}/submit/`, {
-        method: 'POST',
-        body: formData
-      });
+      const response = await makeAuthenticatedRequest(
+        `${BASE_URL}/api/refill-registration/${registrationId}/submit/`,
+        registrationId,
+        {
+          method: 'POST',
+          body: formData
+        }
+      );
 
       console.log('Response status:', response.status);
 
       if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
+        const err = await response.json();
         console.log('Error response:', err);
         setError(err.error || 'Failed to update registration');
       } else {
-        const result = await response.json().catch(() => ({}));
+        const result = await response.json();
         console.log('Success response:', result);
         setSuccess('Registration updated successfully!');
       }
@@ -382,8 +391,8 @@ function RefillRegistrationForm() {
                 type="text"
                 className="form-input"
                 placeholder="Referral (Optional)"
-                value={referralText}
-                onChange={e => setReferralText(e.target.value)}
+                value={selectedReferral || ''}
+                onChange={e => setSelectedReferral(e.target.value)}
                 maxLength={255}
               />
             </div>

@@ -4,15 +4,17 @@ import ProofSubmissionHeader from './ProofSubmissionHeader';
 import ProofSubmissionDetails from './ProofSubmissionDetails';
 import ProofSubmissionForm from './ProofSubmissionForm';
 import '@styles/proof-submission.scss';
+import { makeAuthenticatedRequest } from '@utils/auth';
+import { BASE_URL } from '@constants';
 
 const ProofSubmission = () => {
   const { registrationId, registration } = Route.useLoaderData();
-  const { token } = (Route.useSearch() as any) || {};
   const [error, setError] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0] || null);
@@ -31,17 +33,20 @@ const ProofSubmission = () => {
       return;
     }
     try {
-      // Use FormData for file upload, similar to registration form
+      // Use FormData for file upload with JWT authentication
       const formData = new FormData();
       formData.append('payment_proof', file);
-      if (token) formData.append('token', token);
       
-      const resp = await fetch(`/api/register/${registrationId}/payment-proof/`, {
-        method: 'POST',
-        body: formData,
-      });
+      const resp = await makeAuthenticatedRequest(
+        `${BASE_URL}/api/register/${registrationId}/payment-proof/`,
+        registrationId,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
       if (!resp.ok) {
-        const err = await resp.json().catch(() => ({}));
+        const err = await resp.json();
         setError(err.error || 'Failed to submit payment proof.');
       } else {
         setSuccess('Payment proof submitted successfully!');

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { registrationReducer } from './RegistrationReducer';
 import type { TicketType, Referral, Gender, RegistrationAttendee } from '@api/api';
+import { api } from '@utils/api';
 
 // Use proxy in development, direct URLs in production
 const isDev = import.meta.env.DEV;
@@ -66,14 +67,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
   useEffect(() => {
     dispatch({ type: 'SET_LOADING', isLoading: true });
     
-    fetch(API_TICKET_TYPES, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      mode: 'cors',
-    })
+    api.get('/api/ticket-types/')
       .then(r => {
         if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
         return r.json().catch(() => ({}));
@@ -91,14 +85,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
     
 
     
-    fetch(API_GENDERS, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      mode: 'cors',
-    })
+    api.get('/api/genders/')
       .then(r => {
         if (!r.ok) {
           throw new Error(`HTTP error! status: ${r.status}`);
@@ -232,10 +219,7 @@ export const RegistrationProvider: React.FC<{ children: ReactNode }> = ({ childr
         throw new Error('No attendees data available');
       }
 
-      const response = await fetch(API_REGISTER, {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await api.post('/api/register/', formData);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

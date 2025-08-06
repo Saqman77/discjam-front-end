@@ -1,44 +1,39 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import ProofSubmission from '@pages/ProofSubmission/ProofSubmission';
-import type { RegistrationDetail } from '../../types/api';
+import type { RegistrationDetail } from '@api/api';
+import { getRegistrationToken, makeAuthenticatedRequest, handleTokenExpiration } from '@utils/auth';
+import { BASE_URL } from '@constants';
 
 export const Route = createFileRoute('/RegistrationProofSubmission/$registrationId')({
   component: ProofSubmission,
   loader: async (context) => {
     const { registrationId } = context.params;
     
-    // Try to access search params from the context
-    const searchParams = new URLSearchParams(window.location.search);
-    const token = searchParams.get('token');
+    // Check if we have a valid JWT token
+    const jwtToken = getRegistrationToken(registrationId);
     
-    if (!token) {
+    if (!jwtToken) {
       throw redirect({ to: '/RegistrationProofSubmission' });
     }
     
     try {
-      // Validate token with backend
-      const resp = await fetch(`/api/validate-proof-token/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ registration_id: registrationId, token }),
-      });
+      // Fetch registration data with JWT authentication
+      const res = await makeAuthenticatedRequest(
+        `${BASE_URL}/api/register/${registrationId}/`,
+        registrationId
+      );
       
-      if (!resp.ok) {
+      if (res.status === 401 || res.status === 403) {
+        // Token expired or invalid
+        handleTokenExpiration(registrationId);
         throw redirect({ to: '/RegistrationProofSubmission' });
       }
       
-      const data = await resp.json().catch(() => ({}));
-      
-      if (!data.valid) {
-        throw redirect({ to: '/RegistrationProofSubmission' });
+      if (!res.ok) {
+        throw new Error(`Registration fetch failed: ${res.status}`);
       }
       
-      const registration: RegistrationDetail = await fetch(`/api/register/${registrationId}/`).then(res => {
-        if (!res.ok) {
-          throw new Error(`Registration fetch failed: ${res.status}`);
-        }
-        return res.json().catch(() => ({}));
-      });
+      const registration: RegistrationDetail = await res.json();
       
       return { registrationId, registration };
     } catch (error) {

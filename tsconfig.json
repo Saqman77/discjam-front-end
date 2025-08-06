@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "outDir": "./dist",
     "baseUrl": "./",
@@ -13,17 +15,20 @@
     "noEmit": true,
     "skipLibCheck": true,
     "module": "ESNext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@scenes/*": ["src/scenes/*"],
-      "@hooks/*": ["src/hooks/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],
       "@pages/*": ["src/pages/*"],
       "@routes/*": ["src/routes/*"],
       "@api/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+      "@constants": ["src/constants.ts"]
     },
-    "types": ["node", "three"] 
+    "types": ["node", "three", "vite/client"] 
   },
   "include": ["src"]
 }

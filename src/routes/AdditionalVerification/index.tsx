@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
+import { api } from '@utils/api';
+import { storeRegistrationToken } from '@utils/auth';
 import '@styles/additional-verification.scss';
 
 function AdditionalVerificationEntry() {
@@ -16,15 +18,13 @@ function AdditionalVerificationEntry() {
       const formData = new FormData();
       formData.append('registration_id', registrationId);
       formData.append('cnic_number', cnic.replace(/-/g, ''));
-      const resp = await fetch('/api/verify-additional-verification/', {
-        method: 'POST',
-        body: formData,
-      });
+      const resp = await api.post('/api/verify-additional-verification/', formData);
       const data = await resp.json().catch(() => ({}));
       if (!resp.ok || !data.valid) {
         setError(data.error || 'Verification failed.');
       } else {
-        window.location.href = `/AdditionalVerification/${registrationId}?token=${encodeURIComponent(data.token)}`;
+        storeRegistrationToken(registrationId, data.token);
+        window.location.href = `/AdditionalVerification/${registrationId}`;
       }
     } catch (e: any) {
       setError(e.message || 'Verification failed.');

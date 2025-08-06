@@ -61,6 +61,25 @@ export interface SendTicketResponse {
 export interface ApiError {
   error: string
   details?: Record<string, any>
+}
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  is_superuser: boolean;
+  is_staff: boolean;
+  is_authenticated: boolean;
+}
+
+export interface AuthResponse {
+  user: User;
+  token?: string;
+}
+
+export interface LoginRequest {
+  username: string;
+  password: string;
 } 
 export interface RegistrationDetail {
   id: number
