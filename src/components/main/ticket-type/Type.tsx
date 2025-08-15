@@ -45,7 +45,7 @@ const Type = () => {
                     </div>
                 </div>
                 <div className="bottom">
-                    <p>PKR8000</p>
+                    <p>PKR10000</p>
                 </div>
             </div>
             <div className="r-box" onClick={() => handleTicketTypeChange('couple')} style={{cursor:'pointer'}}>
@@ -58,7 +58,7 @@ const Type = () => {
                     </div>
                 </div>
                 <div className="bottom">
-                    <p>PKR16000</p>
+                    <p>PKR20000</p>
                 </div>
             </div>
         </div>
