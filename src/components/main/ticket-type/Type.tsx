@@ -11,31 +11,20 @@ const Type = () => {
         return state;
     }, [state]);
     const containerRef = useRef<HTMLDivElement>(null);
-    const handleTicketTypeChange = (type: 'couple' | 'single') => {
-        if (!containerRef.current) return;
-        gsap.to(containerRef.current, {
-            opacity: 0,
-            duration: 0.5,
-            onComplete: () => {
-                dispatch({type: 'SET_TICKET_TYPE', ticketType: type});
-                dispatch({type: 'SET_STEP_NUMBER', stepNumber: 2});
-            }
-        });
-    }
   return (
     <div className="t-container" ref={containerRef}>
         <div className="t-header">
             <div className="t-heading">
-                <h1>SELECT THE TYPE OF PASS</h1>
+                <h1>See you at the event!</h1>
             </div>
             <div className="t-desc">
                 <p>
-                Select below the type of pass you are eligible for/want for yourself
+                Sorry the ticketing portal is now closed.
                 </p>
             </div>
         </div>
         <div className="t-wrapper">
-            <div className="l-box" onClick={() => handleTicketTypeChange('single')} style={{cursor:'pointer'}}>
+            <div className="l-box">
                 <div className="center">
                     <div className="icon">
                         <img src={single} alt="" />
@@ -45,10 +34,10 @@ const Type = () => {
                     </div>
                 </div>
                 <div className="bottom">
-                    <p>PKR12000</p>
+                    <p>Sold Out</p>
                 </div>
             </div>
-            <div className="r-box" onClick={() => handleTicketTypeChange('couple')} style={{cursor:'pointer'}}>
+            <div className="r-box">
                 <div className="center">
                     <div className="icon">
                         <img src={couple} alt="" />
@@ -58,7 +47,7 @@ const Type = () => {
                     </div>
                 </div>
                 <div className="bottom">
-                    <p>PKR24000</p>
+                    <p>Sold Out</p>
                 </div>
             </div>
         </div>
